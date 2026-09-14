@@ -1,247 +1,276 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HEALTH CARE WITH TALHA — Premium Digital Health Ecosystem</title>
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>LEARN WITH FLOW - Executive EdTech Platform</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap');
-        body { font-family: 'Plus Jakarta Sans', sans-serif; }
-        .font-mono { font-family: 'JetBrains Mono', monospace; }
+        :root {
+            --primary: #0056D2;
+            --primary-dark: #003B95;
+            --secondary: #00F2FE;
+            --bg-dark: #0A0F1D;
+            --card-bg: #111827;
+            --text-light: #F9FAFB;
+            --text-muted: #9CA3AF;
+            --accent: #10B981;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: var(--bg-dark); color: var(--text-light); line-height: 1.6; }
+
+        .top-banner { background: linear-gradient(90deg, #0056D2, #00F2FE); color: #fff; padding: 6px 5%; font-size: 0.85rem; font-weight: 600; display: flex; justify-content: space-between; }
         
-        /* Premium Card Glow */
-        .health-card { transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-        .health-card:hover { transform: translateY(-5px); box-shadow: 0 20px 25px -5px rgba(21, 128, 61, 0.1), 0 10px 10px -5px rgba(21, 128, 61, 0.04); }
+        .navbar { display: flex; justify-content: space-between; align-items: center; padding: 1.2rem 5%; background: rgba(10, 15, 29, 0.95); position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid #1E293B; }
+        .logo { font-size: 1.6rem; font-weight: 800; color: #FFF; text-decoration: none; display: flex; align-items: center; gap: 8px; }
+        .logo span { color: var(--secondary); }
+        .nav-links { display: flex; gap: 20px; align-items: center; }
+        .nav-links a { color: var(--text-light); text-decoration: none; font-weight: 500; transition: 0.3s; }
+        .nav-links a:hover { color: var(--secondary); }
+        .btn-primary { background: linear-gradient(135deg, var(--primary), var(--secondary)); color: #fff; padding: 10px 24px; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; text-decoration: none; }
+
+        .hero { padding: 70px 5% 50px; text-align: center; background: radial-gradient(circle at center, #1E293B 0%, var(--bg-dark) 100%); }
+        .hero h1 { font-size: 3.2rem; margin-bottom: 15px; font-weight: 900; }
+        .hero h1 span { background: linear-gradient(90deg, #00F2FE, #4FACFE); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .hero p { font-size: 1.1rem; color: var(--text-muted); max-width: 750px; margin: 0 auto 25px; }
+        .search-bar { display: flex; max-width: 600px; margin: 0 auto; gap: 10px; }
+        .search-bar input { flex: 1; padding: 14px; border-radius: 6px; border: 1px solid #334155; background: #1E293B; color: #fff; outline: none; }
+
+        .partners { padding: 25px 5%; text-align: center; border-bottom: 1px solid #1E293B; }
+        .partners p { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 15px; text-transform: uppercase; letter-spacing: 1px; }
+        .partner-logos { display: flex; justify-content: center; gap: 35px; flex-wrap: wrap; opacity: 0.85; font-weight: 700; font-size: 1.1rem; }
+
+        .container { padding: 40px 5%; }
+        .section-title { font-size: 1.8rem; margin-bottom: 25px; display: flex; justify-content: space-between; align-items: center; }
+
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 25px; }
+        .card { background: var(--card-bg); border: 1px solid #1E293B; border-radius: 12px; overflow: hidden; transition: transform 0.3s; }
+        .card:hover { transform: translateY(-5px); border-color: var(--primary); }
+        .card-body { padding: 20px; }
+        .badge { background: rgba(0, 242, 254, 0.1); color: var(--secondary); padding: 4px 8px; border-radius: 4px; font-size: 0.8rem; font-weight: 600; }
+        .card-title { font-size: 1.2rem; margin: 10px 0; color: #FFF; }
+        .card-meta { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 15px; }
+
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 2000; overflow-y: auto; }
+        .modal-content { background: var(--bg-dark); width: 90%; max-width: 1000px; margin: 30px auto; border-radius: 12px; padding: 25px; border: 1px solid #334155; }
+        .video-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 8px; margin-bottom: 20px; }
+        .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
+
+        .quiz-box { background: #1E293B; padding: 20px; border-radius: 8px; margin-top: 20px; }
+        .option-btn { display: block; width: 100%; padding: 12px; margin: 8px 0; background: #334155; color: #fff; border: 1px solid #475569; border-radius: 6px; text-align: left; cursor: pointer; }
+        .option-btn:hover { background: var(--primary); }
+
+        #certificate-view { display: none; background: #fff; color: #000; padding: 40px; border: 10px solid var(--primary); width: 100%; max-width: 800px; margin: 20px auto; text-align: center; position: relative; }
+        .cert-header { font-size: 2.2rem; font-weight: 900; color: var(--primary-dark); text-transform: uppercase; }
+        .cert-body { margin: 25px 0; font-size: 1.1rem; }
+        .cert-name { font-size: 1.8rem; font-weight: bold; border-bottom: 2px solid #000; display: inline-block; padding: 0 20px; margin: 10px 0; }
+        .cert-footer { display: flex; justify-content: space-between; align-items: flex-end; margin-top: 40px; }
+        .signature { text-align: center; border-top: 1px solid #000; width: 180px; padding-top: 5px; font-weight: bold; font-size: 0.9rem; }
+        .qr-code { width: 80px; height: 80px; background: #000; color: #fff; font-size: 9px; display: flex; align-items: center; justify-content: center; }
+
+        footer { background: #070A13; padding: 30px 5%; margin-top: 40px; border-top: 1px solid #1E293B; text-align: center; color: var(--text-muted); }
     </style>
 </head>
-<body class="bg-white text-slate-900 selection:bg-emerald-500 selection:text-white">
+<body>
 
-    <header class="bg-slate-950 text-slate-200 py-2 px-6 text-xs font-mono border-b border-slate-800">
-        <div class="max-w-7xl mx-auto flex justify-between items-center">
-            <span>Global Digital Health Sovereignty Initiative</span>
-            <div class="flex gap-4 text-emerald-400">
-                <span><i class="fa-solid fa-shield-halved"></i> HIPAA Compliant</span>
-                <span><i class="fa-solid fa-user-lock"></i> Encrypted Data</span>
-            </div>
-        </div>
-    </header>
+    <div class="top-banner">
+        <span>100% FREE EXECUTIVE COMPUTING EDUCATION</span>
+        <span>Founder & CEO: Muhammad Talha | 1,000,000+ Capacity Architecture</span>
+    </div>
 
-    <nav class="bg-white border-b border-slate-100 sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-            <div class="flex items-center gap-3">
-                <div class="bg-gradient-to-tr from-emerald-600 to-emerald-400 p-3 rounded-2xl shadow-lg shadow-emerald-500/10 text-white">
-                    <i class="fa-solid fa-heart-pulse text-xl font-black"></i>
-                </div>
-                <div>
-                    <span class="text-xl font-black tracking-tighter text-slate-950">HEALTH CARE WITH <span class="text-emerald-600">TALHA</span></span>
-                    <span class="block text-[10px] font-mono text-slate-500 uppercase tracking-widest">Sovereign Digital Health Platform</span>
-                </div>
-            </div>
-            
-            <div class="hidden md:flex items-center gap-8 text-sm font-semibold text-slate-700">
-                <a href="#vitals" class="hover:text-emerald-600 transition">My Vitals</a>
-                <a href="#services" class="hover:text-emerald-600 transition">Care Services</a>
-                <a href="#telehealth" class="hover:text-emerald-600 transition">Telehealth</a>
-                <a href="#reports" class="hover:text-emerald-600 transition">Health Reports</a>
-            </div>
-
-            <button onclick="openBookingModal()" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-6 py-3 rounded-xl text-xs uppercase tracking-wider cursor-pointer transition flex items-center gap-2 shadow-md shadow-emerald-600/20">
-                <i class="fa-solid fa-calendar-check"></i> Book Consultation
-            </button>
+    <nav class="navbar">
+        <a href="#" class="logo">LEARN WITH <span>FLOW</span></a>
+        <div class="nav-links">
+            <a href="#courses">Catalog</a>
+            <a href="#about">About</a>
+            <a href="#contact">Contact</a>
+            <button class="btn-primary" onclick="openAdmin()">+ Add Custom Course</button>
         </div>
     </nav>
 
-    <main class="max-w-7xl mx-auto px-6 py-16 md:py-24 space-y-24">
-        <section class="grid md:grid-cols-2 gap-12 items-center">
-            <div class="space-y-6">
-                <span class="inline-block bg-emerald-50 text-emerald-700 px-4 py-1 rounded-full text-xs font-bold font-mono border border-emerald-100">Sovereign Digital Health - Powered by Talha</span>
-                <h1 class="text-5xl md:text-6xl font-extrabold tracking-tight text-slate-950 leading-tight">
-                    Your Personal <span class="text-emerald-600">Health Ecosystem</span>, <br>Managed by Talha.
-                </h1>
-                <p class="text-slate-600 text-lg max-w-xl leading-relaxed">
-                    Take control of your well-being. Track vitals, consult specialists, and access comprehensive care services securely on HEALTH CARE WITH TALHA.
-                </p>
-                <div class="flex flex-wrap gap-4 pt-4">
-                    <button onclick="scrollToSection('vitals')" class="bg-slate-950 hover:bg-slate-800 text-white font-bold px-8 py-4 rounded-2xl text-sm uppercase tracking-wider cursor-pointer transition shadow-xl flex items-center gap-2">
-                        <i class="fa-solid fa-chart-line"></i> Start Monitoring
-                    </button>
-                    <button onclick="scrollToSection('services')" class="bg-white hover:bg-slate-100 border border-slate-200 text-slate-900 font-bold px-8 py-4 rounded-2xl text-sm uppercase tracking-wider cursor-pointer transition flex items-center gap-2">
-                        Explore Care <i class="fa-solid fa-arrow-right ml-2 text-emerald-600"></i>
-                    </button>
-                </div>
-            </div>
-            <div class="bg-slate-50 border border-slate-100 p-8 rounded-3xl aspect-[5/4] flex items-center justify-center shadow-inner">
-                <div class="grid grid-cols-2 gap-6 w-full">
-                    <div class="bg-white p-6 rounded-2xl border border-slate-100 space-y-2 shadow-xl shadow-slate-100/50">
-                        <i class="fa-solid fa-heartbeat text-3xl text-rose-500"></i>
-                        <p class="text-xs text-slate-500 font-medium">Avg. Blood Pressure</p>
-                        <p class="text-2xl font-black text-slate-950">120/80 <span class="text-sm font-medium text-slate-400">mmHg</span></p>
-                    </div>
-                    <div class="bg-white p-6 rounded-2xl border border-slate-100 space-y-2 shadow-xl shadow-slate-100/50">
-                        <i class="fa-solid fa-tint text-3xl text-amber-500"></i>
-                        <p class="text-xs text-slate-500 font-medium">Blood Glucose</p>
-                        <p class="text-2xl font-black text-slate-950">98 <span class="text-sm font-medium text-slate-400">mg/dL</span></p>
-                    </div>
-                    <div class="col-span-2 bg-white p-6 rounded-2xl border border-slate-100 shadow-xl shadow-slate-100/50 flex items-center justify-between">
-                        <div class="space-y-1">
-                            <p class="text-sm text-slate-600 font-bold">Next Appointment with Specialist</p>
-                            <p class="text-xs font-mono text-emerald-600 font-bold">Consultation Portal Active</p>
-                        </div>
-                        <i class="fa-solid fa-video text-2xl text-emerald-500"></i>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="vitals" class="space-y-12">
-            <div class="text-center max-w-2xl mx-auto space-y-3">
-                <h2 class="text-4xl font-extrabold text-slate-950 tracking-tight">Centralized Vital Monitoring</h2>
-                <p class="text-lg text-slate-600">Log, track, and analyze your essential health data. Empowering data-driven decisions for your care team.</p>
-            </div>
-
-            <div class="grid md:grid-cols-3 gap-8">
-                <div class="bg-white border border-slate-100 p-8 rounded-3xl space-y-5 health-card shadow-sm">
-                    <div class="flex items-center gap-4">
-                        <div class="w-14 h-14 bg-rose-50 text-rose-600 rounded-2xl flex items-center justify-center text-xl border border-rose-100">
-                            <i class="fa-solid fa-heartbeat"></i>
-                        </div>
-                        <h3 class="text-2xl font-bold text-slate-950">Blood Pressure</h3>
-                    </div>
-                    <p class="text-sm text-slate-600 leading-relaxed">Monitor your systolic and diastolic readings. Track trends over time to manage hypertension or hypotension effectively.</p>
-                    <div class="flex gap-3 items-end bg-slate-50 p-5 rounded-xl border border-slate-100">
-                        <input type="number" id="bp-systolic" placeholder="Systolic" class="w-1/2 bg-white border border-slate-200 px-4 py-3 rounded-lg text-sm focus:outline-none focus:border-emerald-500">
-                        <input type="number" id="bp-diastolic" placeholder="Diastolic" class="w-1/2 bg-white border border-slate-200 px-4 py-3 rounded-lg text-sm focus:outline-none focus:border-emerald-500">
-                        <button onclick="logBP()" class="bg-slate-900 hover:bg-slate-700 text-white p-3 rounded-lg cursor-pointer"><i class="fa-solid fa-plus"></i></button>
-                    </div>
-                    <div id="bp-result" class="text-xs font-bold text-emerald-600"></div>
-                </div>
-
-                <div class="bg-white border border-slate-100 p-8 rounded-3xl space-y-5 health-card shadow-sm">
-                    <div class="flex items-center gap-4">
-                        <div class="w-14 h-14 bg-amber-50 text-amber-600 rounded-2xl flex items-center justify-center text-xl border border-amber-100">
-                            <i class="fa-solid fa-tint"></i>
-                        </div>
-                        <h3 class="text-2xl font-bold text-slate-950">Blood Sugar</h3>
-                    </div>
-                    <p class="text-sm text-slate-600 leading-relaxed">Keep a detailed log of your glucose levels (fasting, postprandial). Crucial for diabetes management and metabolic health.</p>
-                    <div class="flex gap-3 items-end bg-slate-50 p-5 rounded-xl border border-slate-100">
-                        <input type="number" id="sugar-value" placeholder="mg/dL Value" class="flex-grow bg-white border border-slate-200 px-4 py-3 rounded-lg text-sm focus:outline-none focus:border-emerald-500">
-                        <button onclick="logSugar()" class="bg-slate-900 hover:bg-slate-700 text-white p-3 rounded-lg cursor-pointer"><i class="fa-solid fa-plus"></i></button>
-                    </div>
-                    <div id="sugar-result" class="text-xs font-bold text-amber-600"></div>
-                </div>
-
-                <div class="bg-white border border-slate-100 p-8 rounded-3xl space-y-5 health-card shadow-sm">
-                    <div class="flex items-center gap-4">
-                        <div class="w-14 h-14 bg-sky-50 text-sky-600 rounded-2xl flex items-center justify-center text-xl border border-sky-100">
-                            <i class="fa-solid fa-weight-scale"></i>
-                        </div>
-                        <h3 class="text-2xl font-bold text-slate-950">Weight & BMI</h3>
-                    </div>
-                    <p class="text-sm text-slate-600 leading-relaxed">Track your body weight and calculate BMI to monitor fitness progress and overall metabolic status.</p>
-                    <div class="flex gap-3 items-end bg-slate-50 p-5 rounded-xl border border-slate-100">
-                        <input type="number" id="weight-value" placeholder="kg Value" class="flex-grow bg-white border border-slate-200 px-4 py-3 rounded-lg text-sm focus:outline-none focus:border-emerald-500">
-                        <button onclick="logWeight()" class="bg-slate-900 hover:bg-slate-700 text-white p-3 rounded-lg cursor-pointer"><i class="fa-solid fa-plus"></i></button>
-                    </div>
-                    <div id="weight-result" class="text-xs font-bold text-sky-600"></div>
-                </div>
-            </div>
-        </section>
-
-        <section id="services" class="space-y-12">
-            <div class="text-center max-w-2xl mx-auto space-y-3">
-                <h2 class="text-4xl font-extrabold text-slate-950 tracking-tight">360° Health & Care Services</h2>
-                <p class="text-lg text-slate-600">Beyond vitals: access a full spectrum of medical services designed for holistic well-being.</p>
-            </div>
-
-            <div class="grid md:grid-cols-4 gap-6">
-                <div class="bg-slate-50 border border-slate-100 p-6 rounded-3xl space-y-3 text-center flex flex-col items-center health-card">
-                    <div class="w-16 h-16 bg-white rounded-2xl flex items-center justify-center text-3xl text-emerald-600 shadow-lg shadow-emerald-500/5 border border-slate-100">
-                        <i class="fa-solid fa-user-md"></i>
-                    </div>
-                    <h4 class="font-bold text-slate-950">Primary Care</h4>
-                    <p class="text-xs text-slate-600">General consultations, preventive care, and health screenings.</p>
-                </div>
-                <div class="bg-slate-50 border border-slate-100 p-6 rounded-3xl space-y-3 text-center flex flex-col items-center health-card">
-                    <div class="w-16 h-16 bg-white rounded-2xl flex items-center justify-center text-3xl text-emerald-600 shadow-lg shadow-emerald-500/5 border border-slate-100">
-                        <i class="fa-solid fa-user-injured"></i>
-                    </div>
-                    <h4 class="font-bold text-slate-950">Chronic Disease</h4>
-                    <p class="text-xs text-slate-600">Ongoing management plans for long-term health conditions.</p>
-                </div>
-                <div class="bg-slate-50 border border-slate-100 p-6 rounded-3xl space-y-3 text-center flex flex-col items-center health-card">
-                    <div class="w-16 h-16 bg-white rounded-2xl flex items-center justify-center text-3xl text-emerald-600 shadow-lg shadow-emerald-500/5 border border-slate-100">
-                        <i class="fa-solid fa-brain"></i>
-                    </div>
-                    <h4 class="font-bold text-slate-950">Mental Health</h4>
-                    <p class="text-xs text-slate-600">Counseling, psychological support, and stress management.</p>
-                </div>
-                <div class="bg-slate-50 border border-slate-100 p-6 rounded-3xl space-y-3 text-center flex flex-col items-center health-card">
-                    <div class="w-16 h-16 bg-white rounded-2xl flex items-center justify-center text-3xl text-emerald-600 shadow-lg shadow-emerald-500/5 border border-slate-100">
-                        <i class="fa-solid fa-flask"></i>
-                    </div>
-                    <h4 class="font-bold text-slate-950">Lab Diagnostics</h4>
-                    <p class="text-xs text-slate-600">Home sample collection and fast digital lab report delivery.</p>
-                </div>
-            </div>
-        </section>
-
-    </main>
-
-    <footer class="border-t border-slate-100 py-12 bg-slate-50 text-center text-xs text-slate-500 mt-20">
-        <div class="max-w-7xl mx-auto px-6 space-y-4">
-            <p class="font-bold text-slate-800 text-sm">HEALTH CARE WITH TALHA</p>
-            <p>&copy; 2026 Sovereign Digital Health Platform. All rights reserved.</p>
+    <section class="hero">
+        <h1>Master Computing Skills with <span>Coursera-Level Precision</span></h1>
+        <p>Interactive YouTube integration, video quizzes, modular assessments, dynamic certification, and enterprise pathways.</p>
+        <div class="search-bar">
+            <input type="text" id="searchInput" placeholder="Search Machine Learning, Cloud Architecture, Fullstack Development..." onkeyup="filterCourses()">
         </div>
+    </section>
+
+    <div class="partners">
+        <p>Enterprise Technology Pathways</p>
+        <div class="partner-logos">
+            <span>GOOGLE</span>
+            <span>META</span>
+            <span>IBM</span>
+            <span>MICROSOFT</span>
+            <span>OPENAI</span>
+            <span>AWS</span>
+        </div>
+    </div>
+
+    <div class="container" id="courses">
+        <div class="section-title">
+            <h2>Featured Executive Programs</h2>
+            <span style="font-size: 0.9rem; color: var(--text-muted);">Capacity: 1M+ Digital Modules</span>
+        </div>
+        <div class="grid" id="courseGrid"></div>
+    </div>
+
+    <div class="modal" id="lmsModal">
+        <div class="modal-content">
+            <button onclick="closeModal()" style="float: right; background: red; color: #fff; border: none; padding: 6px 12px; cursor: pointer; border-radius: 4px;">X Close</button>
+            <h2 id="modalTitle" style="margin-bottom: 15px;"></h2>
+            
+            <div class="video-container">
+                <iframe id="videoPlayer" src="" allowfullscreen></iframe>
+            </div>
+
+            <div class="quiz-box" id="quizContainer">
+                <h3 id="quizTitle">Module Assessment</h3>
+                <p id="quizQuestion" style="margin: 15px 0;"></p>
+                <div id="quizOptions"></div>
+            </div>
+
+            <button id="certBtn" class="btn-primary" style="display:none; margin-top:20px; width:100%;" onclick="generateCertificate()">Generate Verified Certificate</button>
+        </div>
+    </div>
+
+    <div class="modal" id="certModal">
+        <div class="modal-content" style="background:#fff;">
+            <button onclick="document.getElementById('certModal').style.display='none'" style="float: right; background: red; color: #fff; border: none; padding: 6px 12px; cursor: pointer; border-radius: 4px;">X Close</button>
+            
+            <div id="certificate-view">
+                <div class="cert-header">Certificate of Completion</div>
+                <p class="cert-body">This official credential verifies that</p>
+                <div class="cert-name" id="certStudentName">Muhammad Talha</div>
+                <p class="cert-body">has successfully completed all requirements, video modules, and hard-mode exams for</p>
+                <h3 id="certCourseName" style="color:var(--primary); margin: 15px 0;"></h3>
+                
+                <div class="cert-footer">
+                    <div class="signature">
+                        <div>Muhammad Talha</div>
+                        <small>CEO, LEARN WITH FLOW</small>
+                    </div>
+                    <div class="qr-code">VERIFIED<br>QR-8829-LWF</div>
+                    <div class="signature">
+                        <div id="certInstructor">Lead Instructor</div>
+                        <small>Course Instructor</small>
+                    </div>
+                </div>
+            </div>
+            <button class="btn-primary" style="margin-top:20px;" onclick="window.print()">Print / Save PDF</button>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 LEARN WITH FLOW Platform. All Rights Reserved. | Executive Platform Architecture</p>
+        <p style="font-size:0.8rem; margin-top:8px;">Privacy Policy | Terms of Service | Contact Support</p>
     </footer>
 
     <script>
-        function scrollToSection(id) {
-            document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+        const baseCourses = [
+            { id: 1, title: "Advanced Machine Learning & LLM Pipelines", level: "Advanced", playlistId: "PLXO45GYQLPCEXUForOMLfcN3LVPbf3A1N", instructor: "Google AI Team", modules: 5 },
+            { id: 2, title: "Cloud Architecture & Kubernetes Mastery", level: "Intermediate", playlistId: "PLXO45GYQLPCEXUForOMLfcN3LVPbf3A1N", instructor: "AWS Certified Lead", modules: 3 },
+            { id: 3, title: "Fullstack React & Node.js Engine", level: "Beginner", playlistId: "PLXO45GYQLPCEXUForOMLfcN3LVPbf3A1N", instructor: "Meta Engineering", modules: 4 }
+        ];
+
+        let activeCourse = null;
+        let currentQuestion = 0;
+
+        const sampleQuizzes = [
+            { q: "What is the primary function of Transformer Models in AI?", options: ["Self-Attention Mechanism", "Linear Regression", "CSS Rendering", "Disk I/O"], a: 0 },
+            { q: "Which protocol provides secure encrypted web traffic?", options: ["HTTP", "HTTPS", "FTP", "SMTP"], a: 1 }
+        ];
+
+        function renderCourses(data) {
+            const grid = document.getElementById('courseGrid');
+            grid.innerHTML = '';
+            data.forEach(course => {
+                grid.innerHTML += `
+                    <div class="card">
+                        <div style="background:#1E293B; height:130px; display:flex; align-items:center; justify-content:center; color:var(--secondary); font-size:2.5rem; font-weight:bold;">&lt;/&gt;</div>
+                        <div class="card-body">
+                            <span class="badge">${course.level}</span>
+                            <h3 class="card-title">${course.title}</h3>
+                            <div class="card-meta">Instructor: ${course.instructor} | ${course.modules} Modules</div>
+                            <button class="btn-primary" style="width:100%;" onclick="startCourse(${course.id})">Start Course</button>
+                        </div>
+                    </div>
+                `;
+            });
         }
 
-        function openBookingModal() {
-            alert("Consultation Booking portal initiated for HEALTH CARE WITH TALHA.");
+        function startCourse(id) {
+            activeCourse = baseCourses.find(c => c.id === id);
+            currentQuestion = 0;
+            document.getElementById('modalTitle').innerText = activeCourse.title;
+            document.getElementById('videoPlayer').src = `https://www.youtube.com/embed/videoseries?list=${activeCourse.playlistId}`;
+            document.getElementById('lmsModal').style.display = 'block';
+            document.getElementById('certBtn').style.display = 'none';
+            loadQuiz();
         }
 
-        function logBP() {
-            let sys = document.getElementById('bp-systolic').value;
-            let dia = document.getElementById('bp-diastolic').value;
-            let res = document.getElementById('bp-result');
-            if(!sys || !dia) {
-                alert("Please enter both systolic and diastolic values.");
-                return;
+        function loadQuiz() {
+            if (currentQuestion < sampleQuizzes.length) {
+                const q = sampleQuizzes[currentQuestion];
+                document.getElementById('quizQuestion').innerText = q.q;
+                const opts = document.getElementById('quizOptions');
+                opts.innerHTML = '';
+                q.options.forEach((opt, idx) => {
+                    opts.innerHTML += `<button class="option-btn" onclick="checkAnswer(${idx})">${opt}</button>`;
+                });
+            } else {
+                document.getElementById('quizContainer').innerHTML = "<h3 style='color:var(--accent)'>Assessment Passed Successfully!</h3>";
+                document.getElementById('certBtn').style.display = 'block';
             }
-            let status = "Normal";
-            if(sys > 140 || dia > 90) status = "High (Hypertension)";
-            else if(sys < 90 || dia < 60) status = "Low (Hypotension)";
-            res.innerHTML = `Logged: ${sys}/${dia} mmHg — Status: <b>${status}</b>`;
         }
 
-        function logSugar() {
-            let val = document.getElementById('sugar-value').value;
-            let res = document.getElementById('sugar-result');
-            if(!val) {
-                alert("Please enter blood sugar value.");
-                return;
+        function checkAnswer(idx) {
+            if (idx === sampleQuizzes[currentQuestion].a) {
+                alert("Correct Answer!");
+                currentQuestion++;
+                loadQuiz();
+            } else {
+                alert("Incorrect. Retry Question.");
             }
-            let status = "Normal";
-            if(val > 125) status = "High (Hyperglycemia / Diabetes range)";
-            else if(val < 70) status = "Low (Hypoglycemia)";
-            res.innerHTML = `Logged: ${val} mg/dL — Status: <b>${status}</b>`;
         }
 
-        function logWeight() {
-            let val = document.getElementById('weight-value').value;
-            let res = document.getElementById('weight-result');
-            if(!val) {
-                alert("Please enter your weight.");
-                return;
-            }
-            res.innerHTML = `Logged: ${val} kg successfully.`;
+        function generateCertificate() {
+            document.getElementById('certStudentName').innerText = "Muhammad Talha";
+            document.getElementById('certCourseName').innerText = activeCourse.title;
+            document.getElementById('certInstructor').innerText = activeCourse.instructor;
+            document.getElementById('certificate-view').style.display = 'block';
+            document.getElementById('certModal').style.display = 'block';
         }
+
+        function closeModal() {
+            document.getElementById('lmsModal').style.display = 'none';
+            document.getElementById('videoPlayer').src = '';
+        }
+
+        function filterCourses() {
+            const query = document.getElementById('searchInput').value.toLowerCase();
+            const filtered = baseCourses.filter(c => c.title.toLowerCase().includes(query));
+            renderCourses(filtered);
+        }
+
+        function openAdmin() {
+            const title = prompt("Enter Course Title:");
+            const playlistId = prompt("Enter YouTube Playlist ID:");
+            if(title && playlistId) {
+                baseCourses.push({
+                    id: Date.now(),
+                    title: title,
+                    level: "Custom",
+                    playlistId: playlistId,
+                    instructor: "Muhammad Talha",
+                    modules: 5
+                });
+                renderCourses(baseCourses);
+            }
+        }
+
+        renderCourses(baseCourses);
     </script>
 </body>
 </html>
