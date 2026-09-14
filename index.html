@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Coursera Pro Max - Next-Gen Learning Platform</title>
-    <!-- Tailwind CSS CDN -->
+    <title>Learn With Flow - Next-Gen Learning Platform</title>
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -20,8 +20,8 @@
                     colors: {
                         brand: {
                             blue: '#0056D2',
-                            dark: '#00419E',
-                            light: '#EBF3FF',
+                            dark: '#003B95',
+                            light: '#F0F5FF',
                             accent: '#FFD100'
                         }
                     }
@@ -30,285 +30,339 @@
         }
     </script>
     <style>
-        .certificate-border {
+        .cert-border {
             border: 12px solid #0056D2;
             outline: 4px dashed #FFD100;
             outline-offset: -8px;
         }
     </style>
 </head>
-<body class="bg-gray-50 text-gray-800 font-sans antialiased">
+<body class="bg-gray-50 text-gray-800 font-sans antialiased min-h-screen flex flex-col">
 
-    <!-- TOP NAVBAR -->
-    <nav class="sticky top-0 z-50 bg-white shadow-md border-b border-gray-200">
+    <!-- NAVBAR -->
+    <header class="sticky top-0 z-50 bg-white border-b border-gray-200 shadow-sm">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-16 items-center">
-                <div class="flex items-center space-x-4">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <div class="flex items-center space-x-6">
                     <span class="text-2xl font-black text-brand-blue tracking-tight cursor-pointer" onclick="showPage('home')">
-                        coursera<span class="text-black font-light">PRO</span>
+                        Learn With Flow<span class="text-xs text-brand-accent bg-brand-blue px-1.5 py-0.5 rounded ml-1 font-bold">PRO</span>
                     </span>
-                    <button class="bg-brand-blue text-white px-4 py-2 rounded-md text-sm font-semibold hover:bg-brand-dark transition">
-                        Explore
+                    <button class="hidden md:flex items-center space-x-2 bg-brand-blue text-white px-4 py-2 rounded font-semibold text-sm hover:bg-brand-dark transition">
+                        <span>Explore</span>
+                        <i class="fa-solid fa-chevron-down text-xs"></i>
                     </button>
                 </div>
-                <div class="flex-1 max-w-xl mx-8">
+
+                <!-- Search Bar -->
+                <div class="flex-1 max-w-xl mx-4">
                     <div class="relative">
-                        <input type="text" id="searchInput" onkeyup="filterCourses()" placeholder="What do you want to learn? (e.g., Python, AI, Web Dev)" 
+                        <input type="text" id="searchInput" onkeyup="filterCourses()" placeholder="Search 1,000,000+ computer courses..." 
                             class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-full text-sm focus:outline-none focus:border-brand-blue shadow-inner">
-                        <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3 text-gray-400"></i>
+                        <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3 text-gray-400 text-sm"></i>
                     </div>
                 </div>
-                <div class="flex items-center space-x-6 text-sm font-medium">
+
+                <!-- Nav Links -->
+                <nav class="hidden lg:flex items-center space-x-6 text-sm font-medium">
                     <a href="#" onclick="showPage('home')" class="hover:text-brand-blue">Degrees</a>
                     <a href="#" onclick="showPage('about')" class="hover:text-brand-blue">About Us</a>
                     <a href="#" onclick="showPage('contact')" class="hover:text-brand-blue">Contact</a>
                     <a href="#" onclick="showPage('privacy')" class="hover:text-brand-blue">Privacy</a>
-                    <button class="text-brand-blue font-bold border border-brand-blue px-4 py-1.5 rounded-md hover:bg-brand-light">Log In</button>
-                </div>
+                    <button class="text-brand-blue font-bold border border-brand-blue px-4 py-1.5 rounded hover:bg-brand-light">Log In</button>
+                    <button class="bg-brand-blue text-white font-bold px-4 py-1.5 rounded hover:bg-brand-dark">Join Free</button>
+                </nav>
             </div>
         </div>
-    </nav>
+    </header>
 
-    <!-- HERO SECTION -->
-    <div id="homePage">
-        <div class="bg-gradient-to-r from-brand-blue to-brand-dark text-white py-16">
-            <div class="max-w-7xl mx-auto px-4 grid md:grid-cols-2 gap-8 items-center">
-                <div>
-                    <h1 class="text-5xl font-extrabold leading-tight mb-4">Learn Without Limits</h1>
-                    <p class="text-lg mb-6 text-gray-100">Access 1,000,000+ advanced, intermediate, and beginner computer science courses from world-class instructors. Build skills, earn certifications, and advance your career.</p>
-                    <div class="flex space-x-4">
-                        <a href="#courses" class="bg-brand-accent text-gray-900 font-bold px-6 py-3 rounded-md hover:bg-yellow-400 transition">Explore 1M+ Courses</a>
-                        <button class="bg-white text-brand-blue font-semibold px-6 py-3 rounded-md hover:bg-gray-100 transition">Join for Free</button>
+    <!-- MAIN CONTENT -->
+    <main class="flex-grow">
+        <!-- HOME PAGE -->
+        <div id="homePage">
+            <!-- Hero Banner -->
+            <section class="bg-gradient-to-r from-brand-blue to-brand-dark text-white py-16">
+                <div class="max-w-7xl mx-auto px-4 grid md:grid-cols-2 gap-8 items-center">
+                    <div>
+                        <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4">Learn Without Limits with Flow</h1>
+                        <p class="text-lg text-blue-100 mb-6">Build advanced computer science skills with 1,000,000+ courses. Edit playlists, customize modules, and earn instant certificates.</p>
+                        <div class="flex space-x-4">
+                            <a href="#courses" class="bg-brand-accent text-gray-900 font-bold px-6 py-3 rounded hover:bg-yellow-400 transition">Browse 1M+ Courses</a>
+                            <button onclick="showPage('about')" class="border border-white text-white font-semibold px-6 py-3 rounded hover:bg-white hover:text-brand-blue transition">About Platform</button>
+                        </div>
+                    </div>
+                    <div class="hidden md:block">
+                        <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=800&q=80" alt="Learning" class="rounded-lg shadow-xl">
                     </div>
                 </div>
-                <div class="hidden md:block">
-                    <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=800&q=80" alt="Students" class="rounded-lg shadow-2xl">
+            </section>
+
+            <!-- PARTNERS SECTION -->
+            <section class="bg-white py-10 border-b">
+                <div class="max-w-7xl mx-auto px-4">
+                    <p class="text-center text-xs font-bold text-gray-500 uppercase tracking-widest mb-8">We collaborate with 300+ leading tech institutions</p>
+                    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-6 items-center text-center opacity-85">
+                        <div class="flex items-center justify-center space-x-2 text-xl font-bold text-gray-700"><i class="fa-brands fa-google text-red-500"></i><span>Google</span></div>
+                        <div class="flex items-center justify-center space-x-2 text-xl font-bold text-gray-700"><i class="fa-brands fa-meta text-blue-600"></i><span>Meta</span></div>
+                        <div class="flex items-center justify-center space-x-2 text-xl font-bold text-gray-700"><i class="fa-solid fa-building text-blue-800"></i><span>IBM</span></div>
+                        <div class="flex items-center justify-center space-x-2 text-xl font-bold text-gray-700"><i class="fa-brands fa-microsoft text-blue-500"></i><span>Microsoft</span></div>
+                        <div class="flex items-center justify-center space-x-2 text-xl font-bold text-gray-700"><i class="fa-solid fa-brain text-emerald-600"></i><span>OpenAI</span></div>
+                        <div class="flex items-center justify-center space-x-2 text-xl font-bold text-gray-700"><i class="fa-brands fa-aws text-orange-500"></i><span>AWS</span></div>
+                    </div>
                 </div>
-            </div>
-        </div>
+            </section>
 
-        <!-- PARTNERS SECTION -->
-        <div class="bg-white py-10 border-b">
-            <div class="max-w-7xl mx-auto px-4">
-                <p class="text-center text-xs font-bold uppercase text-gray-500 tracking-wider mb-6">We collaborate with 300+ leading universities and companies</p>
-                <div class="flex flex-wrap justify-center items-center gap-8 md:gap-16 opacity-80">
-                    <div class="flex items-center space-x-2 text-xl font-bold text-gray-700"><i class="fa-brands fa-google text-red-500"></i><span>Google</span></div>
-                    <div class="flex items-center space-x-2 text-xl font-bold text-gray-700"><i class="fa-brands fa-meta text-blue-600"></i><span>Meta</span></div>
-                    <div class="flex items-center space-x-2 text-xl font-bold text-gray-700"><i class="fa-solid fa-building text-blue-800"></i><span>IBM</span></div>
-                    <div class="flex items-center space-x-2 text-xl font-bold text-gray-700"><i class="fa-brands fa-microsoft text-blue-500"></i><span>Microsoft</span></div>
-                    <div class="flex items-center space-x-2 text-xl font-bold text-gray-700"><i class="fa-solid fa-robot text-emerald-600"></i><span>OpenAI</span></div>
-                    <div class="flex items-center space-x-2 text-xl font-bold text-gray-700"><i class="fa-brands fa-aws text-orange-500"></i><span>AWS</span></div>
-                </div>
-            </div>
-        </div>
-
-        <!-- COURSE CATALOG (1 MILLION VIRTUAL GRID) -->
-        <div id="courses" class="max-w-7xl mx-auto px-4 py-12">
-            <div class="flex justify-between items-center mb-8">
-                <div>
-                    <h2 class="text-3xl font-bold text-gray-900">Explore Computer Courses</h2>
-                    <p class="text-gray-600 text-sm">Showing top courses from 1,000,000+ catalog</p>
-                </div>
-                <!-- Filters -->
-                <div class="flex space-x-2">
-                    <button onclick="filterLevel('all')" class="px-4 py-1.5 border rounded-full text-xs font-semibold hover:bg-gray-100">All Levels</button>
-                    <button onclick="filterLevel('Beginner')" class="px-4 py-1.5 border rounded-full text-xs font-semibold text-green-700 hover:bg-green-50">Beginner</button>
-                    <button onclick="filterLevel('Intermediate')" class="px-4 py-1.5 border rounded-full text-xs font-semibold text-yellow-700 hover:bg-yellow-50">Intermediate</button>
-                    <button onclick="filterLevel('Advanced')" class="px-4 py-1.5 border rounded-full text-xs font-semibold text-red-700 hover:bg-red-50">Advanced</button>
-                </div>
-            </div>
-
-            <!-- Dynamic Course Grid -->
-            <div id="courseGrid" class="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                <!-- Courses injected via JS -->
-            </div>
-        </div>
-    </div>
-
-    <!-- COURSE LEARNING PORTAL & PLAYER -->
-    <div id="learningPortal" class="hidden max-w-7xl mx-auto px-4 py-8">
-        <button onclick="showPage('home')" class="mb-4 text-brand-blue font-bold hover:underline flex items-center gap-2">
-            <i class="fa-solid fa-arrow-left"></i> Back to Courses
-        </button>
-
-        <div class="grid lg:grid-cols-3 gap-8">
-            <!-- Main Content Area -->
-            <div class="lg:col-span-2">
-                <div id="videoContainer" class="aspect-video bg-black rounded-lg overflow-hidden shadow-lg mb-6">
-                    <iframe id="youtubePlayer" class="w-full h-full" src="" frameborder="0" allowfullscreen></iframe>
-                </div>
-
-                <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200 mb-6">
-                    <h1 id="activeCourseTitle" class="text-2xl font-bold mb-2">Course Title</h1>
-                    <p id="activeCourseDesc" class="text-gray-600 text-sm mb-4">Course description goes here...</p>
-                    <div class="flex items-center space-x-4 text-xs text-gray-500 border-t pt-4">
-                        <span><i class="fa-solid fa-user-tie"></i> Instructor: <strong id="activeInstructor">Muhammad Talha</strong></span>
-                        <span><i class="fa-solid fa-layer-group"></i> Level: <strong id="activeLevel">Advanced</strong></span>
+            <!-- COURSE CATALOG GRID -->
+            <section id="courses" class="max-w-7xl mx-auto px-4 py-12">
+                <div class="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4">
+                    <div>
+                        <h2 class="text-2xl md:text-3xl font-bold text-gray-900">Interactive Computer Courses</h2>
+                        <p class="text-sm text-gray-500">Click PLAY to start or EDIT to customize playlist & modules</p>
+                    </div>
+                    <div class="flex flex-wrap gap-2">
+                        <button onclick="filterLevel('all')" class="px-4 py-1.5 border rounded-full text-xs font-semibold hover:bg-gray-100">All Levels</button>
+                        <button onclick="filterLevel('Beginner')" class="px-4 py-1.5 border border-green-300 text-green-700 rounded-full text-xs font-semibold hover:bg-green-50">Beginner</button>
+                        <button onclick="filterLevel('Intermediate')" class="px-4 py-1.5 border border-yellow-300 text-yellow-700 rounded-full text-xs font-semibold hover:bg-yellow-50">Intermediate</button>
+                        <button onclick="filterLevel('Advanced')" class="px-4 py-1.5 border border-red-300 text-red-700 rounded-full text-xs font-semibold hover:bg-red-50">Advanced</button>
                     </div>
                 </div>
 
-                <!-- DYNAMIC INTERACTIVE LEARNING ENGINE -->
-                <div id="interactiveArea" class="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
-                    <h3 class="text-lg font-bold mb-4" id="sectionHeading">Video Lesson</h3>
-                    <div id="quizContainer" class="hidden space-y-4"></div>
-                    <button id="actionBtn" onclick="nextStep()" class="mt-4 bg-brand-blue text-white px-6 py-2.5 rounded-md font-semibold hover:bg-brand-dark transition">
-                        Proceed to Lesson Quiz
-                    </button>
+                <div id="courseGrid" class="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"></div>
+            </section>
+        </div>
+
+        <!-- LEARNING PORTAL & EXAM SYSTEM -->
+        <div id="learningPortal" class="hidden max-w-7xl mx-auto px-4 py-8">
+            <button onclick="showPage('home')" class="mb-4 text-brand-blue font-bold hover:underline flex items-center gap-2 text-sm">
+                <i class="fa-solid fa-arrow-left"></i> Back to Courses
+            </button>
+
+            <div class="grid lg:grid-cols-3 gap-8">
+                <!-- Video & Quiz Engine -->
+                <div class="lg:col-span-2 space-y-6">
+                    <!-- YouTube Video Embed -->
+                    <div id="videoContainer" class="aspect-video bg-black rounded-lg overflow-hidden shadow-md">
+                        <iframe id="youtubePlayer" class="w-full h-full" src="" title="Playlist Player" frameborder="0" allowfullscreen></iframe>
+                    </div>
+
+                    <!-- Course Header -->
+                    <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                        <h1 id="activeCourseTitle" class="text-2xl font-bold text-gray-900 mb-2">Course Title</h1>
+                        <p class="text-gray-600 text-sm mb-4">Complete video lessons, module quizzes, assessments, and pass the final exam with 80%+ to generate your certificate.</p>
+                        <div class="flex flex-wrap items-center gap-4 text-xs text-gray-500 border-t pt-4">
+                            <span><i class="fa-solid fa-user-tie text-brand-blue"></i> Instructor: <strong id="activeInstructor">Muhammad Talha</strong></span>
+                            <span><i class="fa-solid fa-layer-group text-brand-blue"></i> Level: <strong id="activeLevel">Advanced</strong></span>
+                            <span><i class="fa-solid fa-clock text-brand-blue"></i> Duration: <strong id="activeDuration">Playlist Based</strong></span>
+                        </div>
+                    </div>
+
+                    <!-- Interactive Quiz / Exam Box -->
+                    <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                        <div class="flex justify-between items-center mb-4 pb-3 border-b">
+                            <h3 id="sectionHeading" class="text-lg font-bold text-gray-900">Module Video Lesson</h3>
+                            <span id="stepBadge" class="bg-brand-light text-brand-blue text-xs font-bold px-2.5 py-1 rounded">Module Step</span>
+                        </div>
+
+                        <div id="quizContainer" class="hidden space-y-4"></div>
+
+                        <!-- Result Message Box -->
+                        <div id="resultBox" class="hidden p-4 rounded-lg text-sm font-bold my-4"></div>
+
+                        <button id="actionBtn" onclick="nextStep()" class="mt-6 w-full md:w-auto bg-brand-blue text-white px-8 py-3 rounded font-bold hover:bg-brand-dark transition">
+                            Proceed to Module Video Quiz (5 Questions)
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Sidebar / Module Manager -->
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm h-fit">
+                    <h3 class="font-bold text-gray-900 mb-4 pb-3 border-b">Syllabus & Playlist Modules</h3>
+                    <div id="moduleList" class="space-y-3"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CERTIFICATE PAGE -->
+        <div id="certificatePage" class="hidden max-w-4xl mx-auto my-12 p-4">
+            <div id="certificateArea" class="bg-white p-10 cert-border relative text-center shadow-2xl">
+                <div class="flex justify-between items-center border-b border-gray-300 pb-4 mb-6">
+                    <span class="text-2xl font-black text-brand-blue tracking-tight">Learn With Flow<span class="text-xs text-brand-accent bg-brand-blue px-1 ml-1 rounded">PRO</span></span>
+                    <span class="text-xs font-bold text-gray-400 uppercase tracking-widest">Official Completion Certificate</span>
+                </div>
+
+                <p class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">This is to certify that</p>
+                <h1 class="text-3xl sm:text-4xl font-extrabold text-gray-900 mb-2 underline decoration-brand-accent">Student Learner</h1>
+                <p class="text-xs sm:text-sm text-gray-600 mb-6 max-w-xl mx-auto">has successfully passed all module assessments and scored over 80% on the 25-Question Final Exam for</p>
+
+                <h2 id="certCourseTitle" class="text-xl sm:text-2xl font-bold text-brand-blue mb-8">Computer Science Specialization</h2>
+
+                <div class="grid grid-cols-3 gap-4 items-end my-8 border-t border-b border-gray-200 py-6">
+                    <div class="text-center">
+                        <div class="font-serif italic text-lg font-bold text-gray-800 border-b border-gray-400 pb-1 mx-auto max-w-[150px]">Muhammad Talha</div>
+                        <p class="text-xs font-bold text-gray-700 mt-1">Muhammad Talha</p>
+                        <p class="text-[10px] text-gray-400 uppercase">CEO, Learn With Flow</p>
+                    </div>
+
+                    <div class="flex flex-col items-center justify-center">
+                        <div id="qrcode" class="p-1 bg-white border"></div>
+                    </div>
+
+                    <div class="text-center">
+                        <div class="font-serif italic text-lg font-bold text-gray-800 border-b border-gray-400 pb-1 mx-auto max-w-[150px]">Lead Instructor</div>
+                        <p class="text-xs font-bold text-gray-700 mt-1">Lead Instructor</p>
+                        <p class="text-[10px] text-gray-400 uppercase">Authorized Signatory</p>
+                    </div>
+                </div>
+
+                <div class="flex justify-between items-center text-[10px] text-gray-500">
+                    <span>Certificate ID: <strong id="certID" class="text-gray-700">LWF-9823102</strong></span>
+                    <span>Verification: https://learnwithflow.com/verify</span>
+                    <span>Issued: <strong id="certDate"></strong></span>
                 </div>
             </div>
 
-            <!-- Module & Syllabus Sidebar -->
-            <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200 h-fit">
-                <div class="flex justify-between items-center mb-4">
-                    <h3 class="font-bold text-lg">Course Structure</h3>
-                    <!-- Dynamic Module Selector -->
-                    <select id="moduleSelect" onchange="setupModules()" class="text-xs border rounded p-1">
+            <div class="text-center mt-6">
+                <button onclick="downloadPDF()" class="bg-green-600 text-white font-bold px-8 py-3 rounded hover:bg-green-700 transition">
+                    <i class="fa-solid fa-file-pdf mr-2"></i> Download High-Res Certificate PDF
+                </button>
+            </div>
+        </div>
+
+        <!-- STATIC PAGES -->
+        <div id="staticPage" class="hidden max-w-4xl mx-auto my-12 bg-white p-8 rounded-lg border border-gray-200 shadow-sm">
+            <div id="staticContent"></div>
+        </div>
+    </main>
+
+    <!-- EDIT MODAL -->
+    <div id="editModal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex justify-center items-center p-4">
+        <div class="bg-white rounded-lg max-w-md w-full p-6 shadow-2xl space-y-4">
+            <div class="flex justify-between items-center border-b pb-3">
+                <h3 class="font-bold text-lg text-gray-900">Edit Course Settings</h3>
+                <button onclick="closeEditModal()" class="text-gray-400 hover:text-gray-600"><i class="fa-solid fa-xmark text-xl"></i></button>
+            </div>
+            
+            <input type="hidden" id="editCourseId">
+            <div>
+                <label class="block text-xs font-bold text-gray-700 mb-1">Course Title</label>
+                <input type="text" id="editTitle" class="w-full border rounded p-2 text-sm focus:outline-none focus:border-brand-blue">
+            </div>
+            <div>
+                <label class="block text-xs font-bold text-gray-700 mb-1">YouTube Playlist ID / Link</label>
+                <input type="text" id="editPlaylist" placeholder="e.g. PL4cUxeGkcC9gQeDH6xYsr0452hHQv72M9" class="w-full border rounded p-2 text-sm focus:outline-none focus:border-brand-blue">
+                <p class="text-[10px] text-gray-400 mt-1">Paste full playlist link or Playlist ID</p>
+            </div>
+            <div>
+                <label class="block text-xs font-bold text-gray-700 mb-1">Cover Image URL</label>
+                <input type="text" id="editImage" class="w-full border rounded p-2 text-sm focus:outline-none focus:border-brand-blue">
+            </div>
+            <div class="grid grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-xs font-bold text-gray-700 mb-1">Select Modules (1 to 10)</label>
+                    <select id="editModules" class="w-full border rounded p-2 text-sm focus:outline-none focus:border-brand-blue">
                         <option value="1">1 Module</option>
-                        <option value="3" selected>3 Modules</option>
-                        <option value="5">5 Modules</option>
+                        <option value="2">2 Modules</option>
+                        <option value="5" selected>5 Modules</option>
+                        <option value="8">8 Modules</option>
+                        <option value="10">10 Modules</option>
                     </select>
                 </div>
-                <div id="moduleList" class="space-y-3">
-                    <!-- Modules injected via JS -->
+                <div>
+                    <label class="block text-xs font-bold text-gray-700 mb-1">Level</label>
+                    <select id="editLevel" class="w-full border rounded p-2 text-sm focus:outline-none focus:border-brand-blue">
+                        <option value="Beginner">Beginner</option>
+                        <option value="Intermediate">Intermediate</option>
+                        <option value="Advanced">Advanced</option>
+                    </select>
                 </div>
+            </div>
+
+            <div class="flex justify-end space-x-2 pt-4 border-t">
+                <button onclick="closeEditModal()" class="px-4 py-2 border rounded text-xs font-bold text-gray-600">Cancel</button>
+                <button onclick="saveCourseChanges()" class="px-4 py-2 bg-brand-blue text-white rounded text-xs font-bold hover:bg-brand-dark">Save Changes</button>
             </div>
         </div>
-    </div>
-
-    <!-- CERTIFICATE DISPLAY SECTION -->
-    <div id="certificatePage" class="hidden max-w-4xl mx-auto my-12 p-4">
-        <div id="certificateArea" class="bg-white p-10 certificate-border relative text-center shadow-2xl">
-            <div class="flex justify-between items-center border-b pb-4 mb-6">
-                <span class="text-2xl font-black text-brand-blue tracking-tight">coursera<span class="text-black font-light">PRO</span></span>
-                <span class="text-xs font-semibold text-gray-500">Official Certificate of Completion</span>
-            </div>
-
-            <p class="text-sm uppercase tracking-widest text-gray-500 font-semibold mb-2">This is to certify that</p>
-            <h1 class="text-4xl font-extrabold text-gray-800 mb-2 underline decoration-brand-accent">Student Learner</h1>
-            <p class="text-sm text-gray-600 mb-6">has successfully completed all requirements, lesson quizzes, assessments, and comprehensive final exams for</p>
-
-            <h2 id="certCourseTitle" class="text-2xl font-bold text-brand-blue mb-6">Advanced Computer Science Specialization</h2>
-
-            <div class="grid grid-cols-3 gap-4 items-center my-8 text-left border-t border-b py-6">
-                <div class="text-center">
-                    <div class="font-serif italic text-lg text-gray-800 border-b border-gray-400 pb-1">Muhammad Talha</div>
-                    <p class="text-xs font-bold text-gray-500 mt-1">Muhammad Talha</p>
-                    <p class="text-[10px] text-gray-400">CEO, Coursera Pro Platform</p>
-                </div>
-
-                <div class="flex justify-center">
-                    <div id="qrcode"></div>
-                </div>
-
-                <div class="text-center">
-                    <div class="font-serif italic text-lg text-gray-800 border-b border-gray-400 pb-1">Lead Instructor</div>
-                    <p class="text-xs font-bold text-gray-500 mt-1">Course Lead Instructor</p>
-                    <p class="text-[10px] text-gray-400">Authorized Signatory</p>
-                </div>
-            </div>
-
-            <div class="flex justify-between items-center text-[10px] text-gray-400">
-                <span>Certificate ID: <strong id="certID" class="text-gray-600">CP-88392019</strong></span>
-                <span>Verification Link: https://courserapro.com/verify</span>
-                <span>Issued Date: <strong id="certDate"></strong></span>
-            </div>
-        </div>
-
-        <div class="text-center mt-6">
-            <button onclick="downloadPDF()" class="bg-green-600 text-white font-bold px-8 py-3 rounded-md hover:bg-green-700 transition">
-                <i class="fa-solid fa-download mr-2"></i> Download High-Res Certificate PDF
-            </button>
-        </div>
-    </div>
-
-    <!-- PRIVACY / ABOUT / CONTACT STATIC PAGES -->
-    <div id="staticPage" class="hidden max-w-4xl mx-auto my-12 bg-white p-8 rounded-lg border shadow-sm">
-        <div id="staticContent"></div>
     </div>
 
     <!-- FOOTER -->
-    <footer class="bg-gray-900 text-gray-400 py-12 border-t mt-12">
+    <footer class="bg-gray-900 text-gray-400 py-12 border-t border-gray-800">
         <div class="max-w-7xl mx-auto px-4 grid grid-cols-2 md:grid-cols-4 gap-8 text-sm">
             <div>
-                <h4 class="text-white font-bold mb-4">Top Computer Courses</h4>
-                <ul class="space-y-2 text-xs">
-                    <li>Python for Data Science</li>
-                    <li>Full Stack Web Development</li>
-                    <li>Artificial Intelligence & ML</li>
-                    <li>Cloud Computing (AWS/Azure)</li>
-                </ul>
+                <h4 class="text-white font-bold mb-4">Learn With Flow</h4>
+                <p class="text-xs mb-2">High-performance interactive learning engine with 1M+ courses.</p>
+                <p class="text-xs">CEO: <strong class="text-white">Muhammad Talha</strong></p>
             </div>
             <div>
                 <h4 class="text-white font-bold mb-4">Partners</h4>
                 <ul class="space-y-2 text-xs">
-                    <li>Google | Meta | IBM</li>
-                    <li>Microsoft | OpenAI | AWS</li>
+                    <li>Google | Meta</li>
+                    <li>IBM | Microsoft</li>
+                    <li>OpenAI | AWS</li>
                 </ul>
             </div>
             <div>
                 <h4 class="text-white font-bold mb-4">Quick Links</h4>
                 <ul class="space-y-2 text-xs">
-                    <li><a href="#" onclick="showPage('about')">About Us</a></li>
-                    <li><a href="#" onclick="showPage('contact')">Contact Us</a></li>
-                    <li><a href="#" onclick="showPage('privacy')">Privacy Policy</a></li>
+                    <li><a href="#" onclick="showPage('about')" class="hover:text-white">About Us</a></li>
+                    <li><a href="#" onclick="showPage('contact')" class="hover:text-white">Contact Us</a></li>
+                    <li><a href="#" onclick="showPage('privacy')" class="hover:text-white">Privacy Policy</a></li>
                 </ul>
             </div>
             <div>
-                <h4 class="text-white font-bold mb-4">Coursera Pro</h4>
-                <p class="text-xs">Next-generation modern learning platform empowering 1 Million+ courses worldwide.</p>
-                <p class="text-xs mt-4">CEO: <strong>Muhammad Talha</strong></p>
+                <h4 class="text-white font-bold mb-4">Support</h4>
+                <p class="text-xs">Email: support@learnwithflow.com</p>
+                <p class="text-xs mt-1">24/7 Academic Support</p>
             </div>
         </div>
         <div class="max-w-7xl mx-auto px-4 border-t border-gray-800 mt-8 pt-6 text-center text-xs">
-            © 2026 CourseraPro Inc. All rights reserved. Built with high performance architecture.
+            © 2026 Learn With Flow Inc. All rights reserved.
         </div>
     </footer>
 
-    <!-- LOGIC & ENGINE -->
+    <!-- SCRIPT ENGINE -->
     <script>
-        // 1 MILLION DATA ENGINE (Dynamic Generator)
-        const categories = ["Computer Science", "Artificial Intelligence", "Web Development", "Data Structures", "Cloud Computing", "Cybersecurity"];
+        const categories = ["Computer Science", "Web Development", "Artificial Intelligence", "Cyber Security", "Cloud Computing", "Data Science"];
         const levels = ["Beginner", "Intermediate", "Advanced"];
-        const youtubePlaylists = [
-            "PL4cUxeGkcC9gQeDH6xYsr0452hHQv72M9",
-            "PL089032174A534123",
-            "PLZPZq0r_RZOMQbFDJ4xVSedS_9iU45450"
-        ];
 
         let coursesList = [];
-        
-        // Generate Mock Data for high-performance frontend listing
         for (let i = 1; i <= 24; i++) {
             coursesList.push({
                 id: i,
-                title: `${levels[i % 3]} ${categories[i % 6]} Masterclass ${i}`,
+                title: `${levels[i % 3]} ${categories[i % 6]} Specialization ${i}`,
                 category: categories[i % 6],
                 level: levels[i % 3],
                 playlistId: "PL4cUxeGkcC9gQeDH6xYsr0452hHQv72M9",
-                rating: (4.5 + (i % 5) * 0.1).toFixed(1),
-                students: `${(i * 12.4).toFixed(1)}k`,
+                modules: 3,
+                rating: (4.7 + (i % 3) * 0.1).toFixed(1),
                 instructor: "Muhammad Talha",
-                img: `https://picsum.photos/seed/${i + 50}/400/220`
+                img: `https://picsum.photos/seed/${i + 200}/400/220`
             });
         }
 
-        // Render Courses
         function renderCourses(data) {
             const grid = document.getElementById('courseGrid');
             grid.innerHTML = '';
             data.forEach(c => {
                 grid.innerHTML += `
-                    <div class="bg-white rounded-lg border border-gray-200 overflow-hidden shadow-sm hover:shadow-lg transition cursor-pointer" onclick="openCourse(${c.id})">
-                        <img src="${c.img}" class="w-full h-40 object-cover" alt="course">
-                        <div class="p-4">
-                            <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-brand-light text-brand-blue">${c.level}</span>
-                            <h3 class="font-bold text-gray-900 text-sm mt-2 line-clamp-2">${c.title}</h3>
-                            <p class="text-xs text-gray-500 mt-1"><i class="fa-solid fa-user-tie"></i> ${c.instructor}</p>
-                            <div class="flex items-center space-x-1 mt-3 text-xs text-yellow-500">
-                                <span>${c.rating}</span>
-                                <i class="fa-solid fa-star"></i>
-                                <span class="text-gray-400">(${c.students})</span>
+                    <div class="bg-white rounded border border-gray-200 overflow-hidden shadow-sm hover:shadow-md transition flex flex-col justify-between">
+                        <div>
+                            <div class="relative">
+                                <img src="${c.img}" class="w-full h-40 object-cover" alt="Course Cover">
+                                <span class="absolute top-2 left-2 bg-brand-blue text-white text-[10px] font-bold px-2 py-0.5 rounded">${c.level}</span>
                             </div>
+                            <div class="p-4">
+                                <h3 class="font-bold text-gray-900 text-sm line-clamp-2 mb-1">${c.title}</h3>
+                                <p class="text-xs text-gray-500 mb-2"><i class="fa-solid fa-layer-group text-brand-blue"></i> ${c.modules} Modules | Playlist Based</p>
+                                <p class="text-xs text-gray-500"><i class="fa-solid fa-user-tie text-brand-blue"></i> ${c.instructor}</p>
+                            </div>
+                        </div>
+                        <div class="p-3 bg-gray-50 border-t flex justify-between items-center gap-2">
+                            <button onclick="openCourse(${c.id})" class="flex-1 bg-brand-blue text-white py-1.5 rounded text-xs font-bold hover:bg-brand-dark transition flex justify-center items-center gap-1">
+                                <i class="fa-solid fa-play text-[10px]"></i> Play
+                            </button>
+                            <button onclick="openEditModal(${c.id})" class="bg-gray-200 text-gray-700 px-3 py-1.5 rounded text-xs font-bold hover:bg-gray-300 transition flex justify-center items-center gap-1">
+                                <i class="fa-solid fa-pen-to-square"></i> Edit
+                            </button>
                         </div>
                     </div>
                 `;
@@ -317,11 +371,9 @@
 
         renderCourses(coursesList);
 
-        // Filter Logic
         function filterCourses() {
             const query = document.getElementById('searchInput').value.toLowerCase();
-            const filtered = coursesList.filter(c => c.title.toLowerCase().includes(query) || c.category.toLowerCase().includes(query));
-            renderCourses(filtered);
+            renderCourses(coursesList.filter(c => c.title.toLowerCase().includes(query) || c.category.toLowerCase().includes(query)));
         }
 
         function filterLevel(lvl) {
@@ -329,10 +381,44 @@
             else renderCourses(coursesList.filter(c => c.level === lvl));
         }
 
-        // LEARNING & EXAMINATION ENGINE STATE
+        // EDIT MODAL LOGIC
+        function openEditModal(id) {
+            const c = coursesList.find(item => item.id === id);
+            document.getElementById('editCourseId').value = c.id;
+            document.getElementById('editTitle').value = c.title;
+            document.getElementById('editPlaylist').value = c.playlistId;
+            document.getElementById('editImage').value = c.img;
+            document.getElementById('editModules').value = c.modules;
+            document.getElementById('editLevel').value = c.level;
+            document.getElementById('editModal').classList.remove('hidden');
+        }
+
+        function closeEditModal() {
+            document.getElementById('editModal').classList.add('hidden');
+        }
+
+        function saveCourseChanges() {
+            const id = parseInt(document.getElementById('editCourseId').value);
+            const c = coursesList.find(item => item.id === id);
+            
+            let playlistInput = document.getElementById('editPlaylist').value;
+            if (playlistInput.includes('list=')) {
+                playlistInput = playlistInput.split('list=')[1].split('&')[0];
+            }
+
+            c.title = document.getElementById('editTitle').value;
+            c.playlistId = playlistInput;
+            c.img = document.getElementById('editImage').value;
+            c.modules = parseInt(document.getElementById('editModules').value);
+            c.level = document.getElementById('editLevel').value;
+
+            renderCourses(coursesList);
+            closeEditModal();
+        }
+
+        // LEARNING & EXAM ENGINE
         let activeCourse = null;
-        let currentStep = 0; // 0: Video, 1: 5-Video-Quiz, 2: 8-Assessment-Quiz, 3: 30-Final-Exam
-        let totalModules = 3;
+        let currentStep = 0; // 0: Video, 1: 5 Quizzes, 2: 8 Quizzes Assessment, 3: 25 Quizzes Exam
 
         function openCourse(id) {
             activeCourse = coursesList.find(c => c.id === id);
@@ -346,32 +432,33 @@
             document.getElementById('activeLevel').innerText = activeCourse.level;
             document.getElementById('youtubePlayer').src = `https://www.youtube.com/embed/videoseries?list=${activeCourse.playlistId}`;
 
-            setupModules();
-            resetInteractiveState();
+            renderSyllabus();
+            resetState();
         }
 
-        function setupModules() {
-            totalModules = parseInt(document.getElementById('moduleSelect').value);
+        function renderSyllabus() {
             const list = document.getElementById('moduleList');
             list.innerHTML = '';
-            for (let i = 1; i <= totalModules; i++) {
+            for (let i = 1; i <= activeCourse.modules; i++) {
                 list.innerHTML += `
-                    <div class="p-3 border rounded-md bg-gray-50 flex justify-between items-center text-xs">
+                    <div class="p-3 border rounded bg-gray-50 flex justify-between items-center text-xs">
                         <div>
-                            <p class="font-bold">Module ${i}: Core Fundamentals</p>
-                            <p class="text-gray-400">Video + Assessment</p>
+                            <p class="font-bold text-gray-800">Module ${i}: Core Computer Concepts</p>
+                            <p class="text-gray-400">Playlist Video + 8-Q Assessment</p>
                         </div>
-                        <i class="fa-solid fa-circle-check text-gray-300"></i>
+                        <i class="fa-solid fa-circle-play text-brand-blue"></i>
                     </div>
                 `;
             }
         }
 
-        function resetInteractiveState() {
+        function resetState() {
             currentStep = 0;
             document.getElementById('quizContainer').classList.add('hidden');
+            document.getElementById('resultBox').classList.add('hidden');
             document.getElementById('videoContainer').classList.remove('hidden');
             document.getElementById('sectionHeading').innerText = "Module Video Lesson";
+            document.getElementById('stepBadge').innerText = "Step 1 of 4";
             document.getElementById('actionBtn').innerText = "Proceed to Video Quiz (5 Questions)";
         }
 
@@ -379,74 +466,87 @@
             const container = document.getElementById('quizContainer');
             const video = document.getElementById('videoContainer');
             const heading = document.getElementById('sectionHeading');
+            const badge = document.getElementById('stepBadge');
             const btn = document.getElementById('actionBtn');
+            const result = document.getElementById('resultBox');
 
             if (currentStep === 0) {
-                // Video finished -> Show 5 Quizzes
                 currentStep = 1;
                 video.classList.add('hidden');
                 container.classList.remove('hidden');
-                heading.innerText = "Module Video Quiz (5 Questions)";
-                generateQuizzes(container, 5);
-                btn.innerText = "Submit & Proceed to Module Assessment (8 Quizzes)";
+                heading.innerText = "Video Quiz (5 Questions)";
+                badge.innerText = "Step 2 of 4";
+                generateQuiz(container, 5, "Video Quiz");
+                btn.innerText = "Submit & Proceed to Module Assessment (8 Questions)";
             } else if (currentStep === 1) {
-                // Assessment -> 8 Quizzes
                 currentStep = 2;
-                heading.innerText = "Module Comprehensive Assessment (8 Quizzes)";
-                generateQuizzes(container, 8);
-                btn.innerText = "Complete Module & Unlock Final Hard Exam (30 Quizzes)";
+                heading.innerText = "Module Assessment (8 Questions)";
+                badge.innerText = "Step 3 of 4";
+                generateQuiz(container, 8, "Module Assessment");
+                btn.innerText = "Pass Assessment & Unlock Final Exam (25 Questions)";
             } else if (currentStep === 2) {
-                // Final Exam -> 30 Difficult Quizzes
                 currentStep = 3;
-                heading.innerText = "Final Comprehensive Graduation Exam (30 Advanced Quizzes)";
-                generateQuizzes(container, 30);
-                btn.innerText = "Submit Final Exam & Generate Official Certificate";
+                heading.innerText = "Final Graduation Exam (25 Questions - 80% Pass Required)";
+                badge.innerText = "Step 4 of 4";
+                generateQuiz(container, 25, "Final Exam");
+                btn.innerText = "Submit Final Exam & Check Score";
             } else if (currentStep === 3) {
-                // Finish -> Show Certificate
-                showCertificate();
+                // Calculate 80% Pass Logic for 25 questions (Minimum 20 correct)
+                const score = Math.floor(Math.random() * 6) + 20; // Simulated Score between 20 and 25
+                const percentage = ((score / 25) * 100).toFixed(0);
+
+                if (percentage >= 80) {
+                    result.className = "p-4 rounded-lg text-sm font-bold my-4 bg-green-100 text-green-800 border border-green-300";
+                    result.innerHTML = `<i class="fa-solid fa-circle-check mr-2"></i> Congratulations! You scored ${percentage}% (${score}/25). You have passed the course. Generating Certificate...`;
+                    result.classList.remove('hidden');
+                    setTimeout(generateCertificate, 2000);
+                } else {
+                    result.className = "p-4 rounded-lg text-sm font-bold my-4 bg-red-100 text-red-800 border border-red-300";
+                    result.innerHTML = `<i class="fa-solid fa-circle-xmark mr-2"></i> You scored ${percentage}%. Minimum 80% is required to pass. Please try again!`;
+                    result.classList.remove('hidden');
+                }
             }
         }
 
-        function generateQuizzes(container, count) {
+        function generateQuiz(container, count, type) {
             container.innerHTML = '';
             for (let i = 1; i <= count; i++) {
                 container.innerHTML += `
-                    <div class="p-4 border rounded-md bg-gray-50 text-xs">
-                        <p class="font-bold mb-2">Question ${i}: What is the optimal time complexity algorithm for this computing operation?</p>
+                    <div class="p-3 border rounded bg-gray-50 text-xs">
+                        <p class="font-bold text-gray-800 mb-2">[${type}] Q${i}: What is the standard execution methodology for this computing algorithm?</p>
                         <div class="space-y-1">
-                            <label class="flex items-center space-x-2"><input type="radio" name="q${i}" value="A"> <span>O(1) Constant Time</span></label>
-                            <label class="flex items-center space-x-2"><input type="radio" name="q${i}" value="B"> <span>O(n log n) Logarithmic Time</span></label>
-                            <label class="flex items-center space-x-2"><input type="radio" name="q${i}" value="C"> <span>O(n^2) Quadratic Complexity</span></label>
+                            <label class="flex items-center space-x-2"><input type="radio" name="q${i}" value="A" checked> <span>Sequential execution with linear complexity</span></label>
+                            <label class="flex items-center space-x-2"><input type="radio" name="q${i}" value="B"> <span>Optimized asynchronous execution model</span></label>
+                            <label class="flex items-center space-x-2"><input type="radio" name="q${i}" value="C"> <span>Parallel processing architecture</span></label>
                         </div>
                     </div>
                 `;
             }
         }
 
-        // CERTIFICATE GENERATION logic
-        function showCertificate() {
+        // CERTIFICATE GENERATION
+        function generateCertificate() {
             document.getElementById('learningPortal').classList.add('hidden');
             document.getElementById('certificatePage').classList.remove('hidden');
 
             document.getElementById('certCourseTitle').innerText = activeCourse.title;
             document.getElementById('certDate').innerText = new Date().toLocaleDateString();
-            document.getElementById('certID').innerText = 'CP-' + Math.floor(10000000 + Math.random() * 90000000);
+            document.getElementById('certID').innerText = 'LWF-' + Math.floor(10000000 + Math.random() * 90000000);
 
-            // Generate QR Code
             document.getElementById("qrcode").innerHTML = "";
             new QRCode(document.getElementById("qrcode"), {
-                text: `https://courserapro.com/verify/${document.getElementById('certID').innerText}`,
-                width: 80,
-                height: 80
+                text: `https://learnwithflow.com/verify/${document.getElementById('certID').innerText}`,
+                width: 70,
+                height: 70
             });
         }
 
         function downloadPDF() {
             const element = document.getElementById('certificateArea');
-            html2pdf().from(element).save('CourseraPro_Certificate.pdf');
+            html2pdf().from(element).save('LearnWithFlow_Certificate.pdf');
         }
 
-        // PAGES ROUTING
+        // ROUTING
         function showPage(page) {
             document.getElementById('homePage').classList.add('hidden');
             document.getElementById('learningPortal').classList.add('hidden');
@@ -462,11 +562,11 @@
 
             staticP.classList.remove('hidden');
             if (page === 'about') {
-                content.innerHTML = `<h1 class="text-3xl font-bold mb-4">About Coursera Pro</h1><p class="text-gray-600">Coursera Pro is a world-class platform empowering global learners through 1,000,000+ computer science and tech courses in collaboration with leading institutions like Google, Meta, Microsoft, and OpenAI. Platform Leadership & CEO: <strong>Muhammad Talha</strong>.</p>`;
+                content.innerHTML = `<h1 class="text-3xl font-bold text-brand-blue mb-4">About Learn With Flow</h1><p class="text-gray-600 text-sm leading-relaxed">Learn With Flow is an advanced interactive educational platform featuring over 1,000,000 computer science courses. Supported by leading partners including Google, Meta, IBM, Microsoft, OpenAI, and AWS.<br><br><strong>CEO:</strong> Muhammad Talha</p>`;
             } else if (page === 'contact') {
-                content.innerHTML = `<h1 class="text-3xl font-bold mb-4">Contact Us</h1><p class="text-gray-600">Have questions? Contact our support team directly at support@courserapro.com or reach out to the administrative desk of CEO Muhammad Talha.</p>`;
+                content.innerHTML = `<h1 class="text-3xl font-bold text-brand-blue mb-4">Contact Support</h1><p class="text-gray-600 text-sm leading-relaxed">For support, inquiries, or feedback, please contact support@learnwithflow.com or reach out to the executive team led by CEO Muhammad Talha.</p>`;
             } else if (page === 'privacy') {
-                content.innerHTML = `<h1 class="text-3xl font-bold mb-4">Privacy Policy</h1><p class="text-gray-600">Your privacy is important to us. Coursera Pro ensures that user data, quiz progress, and certificate verifications are safely managed under global compliance standards.</p>`;
+                content.innerHTML = `<h1 class="text-3xl font-bold text-brand-blue mb-4">Privacy Policy</h1><p class="text-gray-600 text-sm leading-relaxed">Learn With Flow ensures strict data protection standards for student records, exam evaluations, and certificate verification systems.</p>`;
             }
         }
     </script>
