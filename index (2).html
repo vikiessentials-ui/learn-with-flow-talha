@@ -3,217 +3,457 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Learn With Flow - Automated LMS Portal</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&family=Playfair+Display:ital,wght@0,700;1,700&display=swap">
+    <title>Talha Academy - NextGen LMS Engine</title>
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- PDF & QR Libraries -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
     <style>
-        :root { --primary-blue: #0047AB; --dark-navy: #002366; --soft-blue: #EFF6FF; --border-color: #E2E8F0; --text-main: #0F172A; --text-muted: #64748B; --success-green: #059669; }
+        :root {
+            --bg-dark: #07090E;
+            --surface-card: #0F172A;
+            --surface-hover: #1E293B;
+            --accent-primary: #6366F1;
+            --accent-gradient: linear-gradient(135deg, #6366F1 0%, #A855F7 50%, #EC4899 100%);
+            --accent-glow: rgba(99, 102, 241, 0.4);
+            --text-main: #F8FAFC;
+            --text-muted: #64748B;
+            --border-glow: rgba(255, 255, 255, 0.08);
+            --success: #10B981;
+        }
+
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
-        body { background-color: #F8FAFC; color: var(--text-main); min-height: 100vh; }
-        .navbar { background: #FFFFFF; border-bottom: 1px solid var(--border-color); position: sticky; top: 0; z-index: 100; }
-        .nav-container { max-width: 1280px; margin: 0 auto; padding: 0 1.5rem; height: 70px; display: flex; align-items: center; justify-content: space-between; }
-        .brand-logo { display: flex; align-items: center; gap: 0.75rem; cursor: pointer; }
-        .logo-badge { width: 42px; height: 42px; background: var(--primary-blue); color: #FFFFFF; font-weight: 800; font-size: 1.25rem; display: flex; align-items: center; justify-content: center; border-radius: 12px; }
-        .btn { padding: 0.6rem 1.2rem; font-size: 0.85rem; font-weight: 700; border-radius: 10px; border: none; cursor: pointer; display: inline-flex; align-items: center; gap: 0.5rem; }
-        .btn-primary { background-color: var(--primary-blue); color: #FFFFFF; }
-        .btn-success { background-color: var(--success-green); color: #FFFFFF; }
-        .btn-disabled { background-color: #CBD5E1; color: #94A3B8; cursor: not-allowed; }
-        .view-section { max-width: 1280px; margin: 0 auto; padding: 2rem 1.5rem; width: 100%; }
+        
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            min-height: 100vh;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 15% 15%, rgba(99, 102, 241, 0.12) 0%, transparent 40%),
+                radial-gradient(circle at 85% 85%, rgba(236, 72, 153, 0.12) 0%, transparent 40%);
+        }
+
+        /* Glass Header */
+        .navbar {
+            background: rgba(15, 23, 42, 0.75);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border-glow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            height: 75px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .brand-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .brand-icon {
+            width: 42px;
+            height: 42px;
+            background: var(--accent-gradient);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 1.3rem;
+            color: #fff;
+            box-shadow: 0 0 20px var(--accent-glow);
+        }
+
+        .brand-title {
+            font-size: 1.3rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #FFF 30%, #94A3B8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* General Layout */
+        .main-wrapper { max-width: 1400px; margin: 0 auto; padding: 2.5rem 2rem; }
         .hidden { display: none !important; }
-        .hero-banner { background: linear-gradient(135deg, var(--dark-navy), var(--primary-blue)); color: #FFFFFF; padding: 2.5rem; border-radius: 24px; margin-bottom: 2rem; }
-        .courses-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.5rem; }
-        .course-card { background: #FFFFFF; border: 1px solid var(--border-color); border-radius: 20px; overflow: hidden; display: flex; flex-direction: column; justify-content: space-between; }
-        .course-cover { width: 100%; height: 180px; object-fit: cover; }
-        .course-body { padding: 1.25rem; }
-        .badge { font-size: 0.65rem; font-weight: 800; background: var(--soft-blue); color: var(--primary-blue); padding: 0.25rem 0.5rem; border-radius: 6px; text-transform: uppercase; }
-        .player-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 1.5rem; }
-        @media (max-width: 992px) { .player-grid { grid-template-columns: 1fr; } }
-        .video-container { width: 100%; aspect-ratio: 16/9; background: #000; border-radius: 20px; overflow: hidden; }
-        .video-container iframe { width: 100%; height: 100%; }
-        .module-details-card, .playlist-card { background: #FFFFFF; padding: 1.25rem; border-radius: 20px; border: 1px solid var(--border-color); margin-top: 1rem; }
-        .playlist-item { padding: 0.75rem; border-radius: 12px; border: 1px solid var(--border-color); margin-bottom: 0.5rem; font-size: 0.8rem; display: flex; justify-content: space-between; align-items: center; cursor: pointer; }
-        .playlist-item.active { border-color: var(--primary-blue); background: var(--soft-blue); font-weight: 700; }
-        .cert-outer-wrapper { background: #FFFFFF; border: 16px solid #FFFFFF; outline: 2px solid var(--border-color); border-radius: 24px; padding: 3rem; text-align: center; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15); }
-        .cert-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--primary-blue); padding-bottom: 1rem; margin-bottom: 2rem; }
-        .cert-student-name { font-size: 2.5rem; font-weight: 800; color: var(--text-main); text-transform: uppercase; text-decoration: underline; text-decoration-color: var(--primary-blue); margin: 1rem 0; }
-        .cert-center-banner { background: var(--primary-blue); color: #FFFFFF; padding: 1.25rem 2rem; border-radius: 16px; max-width: 650px; margin: 1.5rem auto; }
-        .cert-signatures { display: grid; grid-template-columns: 1fr 1fr 1fr; align-items: flex-end; margin-top: 2.5rem; padding-top: 1.5rem; border-top: 1px solid var(--border-color); }
-        .sig-font { font-family: 'Playfair Display', serif; font-style: italic; font-size: 1.35rem; color: var(--primary-blue); border-bottom: 1px solid var(--border-color); padding-bottom: 0.25rem; width: 140px; margin: 0 auto; }
+
+        /* Buttons */
+        .btn {
+            padding: 0.75rem 1.5rem;
+            font-size: 0.9rem;
+            font-weight: 700;
+            border-radius: 12px;
+            border: none;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .btn-gradient {
+            background: var(--accent-gradient);
+            color: #fff;
+            box-shadow: 0 4px 15px var(--accent-glow);
+        }
+
+        .btn-gradient:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px var(--accent-glow);
+        }
+
+        .btn-glass {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-glow);
+            color: var(--text-main);
+        }
+
+        .btn-glass:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Hero Banner */
+        .hero-section {
+            background: rgba(15, 23, 42, 0.5);
+            border: 1px solid var(--border-glow);
+            border-radius: 24px;
+            padding: 3.5rem 3rem;
+            margin-bottom: 3rem;
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0; right: 0;
+            width: 300px; height: 300px;
+            background: var(--accent-gradient);
+            opacity: 0.15;
+            filter: blur(80px);
+            border-radius: 50%;
+        }
+
+        .hero-title { font-size: 2.8rem; font-weight: 800; margin-bottom: 1rem; line-height: 1.2; }
+        .hero-subtitle { color: var(--text-muted); font-size: 1.1rem; max-width: 600px; }
+
+        /* Grid Layout */
+        .section-header { margin-bottom: 1.5rem; display: flex; justify-content: space-between; align-items: center; }
+        .courses-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 2rem; }
+
+        .course-card {
+            background: var(--surface-card);
+            border: 1px solid var(--border-glow);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .course-card:hover {
+            transform: translateY(-6px);
+            border-color: rgba(99, 102, 241, 0.4);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .card-banner { width: 100%; height: 200px; object-fit: cover; }
+        .card-body { padding: 1.5rem; flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between; }
+        .badge { align-self: flex-start; padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.75rem; font-weight: 700; background: rgba(99, 102, 241, 0.15); color: #818CF8; border: 1px solid rgba(99, 102, 241, 0.3); }
+
+        /* Modern Workspace Video Player */
+        .workspace-layout { display: grid; grid-template-columns: 2.5fr 1fr; gap: 2rem; }
+        @media (max-width: 1024px) { .workspace-layout { grid-template-columns: 1fr; } }
+
+        .video-container {
+            width: 100%;
+            aspect-ratio: 16/9;
+            background: #000;
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid var(--border-glow);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+        }
+
+        .video-container iframe { width: 100%; height: 100%; border: none; }
+
+        .sidebar-card {
+            background: var(--surface-card);
+            border: 1px solid var(--border-glow);
+            border-radius: 20px;
+            padding: 1.5rem;
+            height: fit-content;
+        }
+
+        .module-item {
+            padding: 1rem;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border-glow);
+            margin-bottom: 0.75rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: all 0.2s;
+        }
+
+        .module-item:hover { background: var(--surface-hover); }
+        .module-item.active { background: rgba(99, 102, 241, 0.15); border-color: var(--accent-primary); }
+
+        /* Certificate Styling */
+        .cert-wrapper {
+            background: #0B0F19;
+            border: 2px solid rgba(99, 102, 241, 0.3);
+            border-radius: 24px;
+            padding: 4rem;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.8);
+        }
+
+        .cert-name {
+            font-size: 3rem;
+            font-weight: 800;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin: 1.5rem 0;
+            text-transform: uppercase;
+        }
     </style>
 </head>
 <body>
-    <header class="navbar">
+
+    <!-- Header Navigation -->
+    <nav class="navbar">
         <div class="nav-container">
-            <div class="brand-logo" onclick="switchView('catalog')">
-                <div class="logo-badge">L</div>
-                <div><h1 style="font-size: 1.25rem; font-weight: 800; line-height: 1;">Learn With Flow</h1><span style="font-size: 0.65rem; font-weight: 700; color: var(--primary-blue); letter-spacing: 1px; text-transform: uppercase;">Automated LMS</span></div>
+            <div class="brand-logo" onclick="switchView('catalogView')">
+                <div class="brand-icon">T</div>
+                <span class="brand-title">Talha Academy</span>
             </div>
-            <button onclick="switchView('catalog')" class="btn" style="background: #F1F5F9; color: var(--text-main);"><i class="fa-solid fa-layer-group"></i> All Specializations</button>
+            <button class="btn btn-glass" onclick="switchView('catalogView')"><i class="fa-solid fa-compass"></i> Explore Catalog</button>
         </div>
-    </header>
-    <main>
-        <section id="catalogView" class="view-section">
-            <div class="hero-banner">
-                <span class="badge" style="background: rgba(255,255,255,0.2); color: #fff;">Pre-Configured</span>
-                <h2 style="font-size: 2rem; font-weight: 800; margin: 0.5rem 0;">Automated Tech Tracks</h2>
-                <p style="font-size: 0.85rem; opacity: 0.9;">Quizzes complete karein, Green Tick (✔) unlock karein aur certification hasil karein.</p>
+    </nav>
+
+    <main class="main-wrapper">
+        
+        <!-- 1. COURSE CATALOG VIEW -->
+        <section id="catalogView">
+            <div class="hero-section">
+                <h1 class="hero-title">Advance Your Skills With<br>High-Impact Courses</h1>
+                <p class="hero-subtitle">Interactive practical modules complete karein aur verified completion certification hasil karein.</p>
             </div>
-            <div id="coursesGrid" class="courses-grid"></div>
+            
+            <div class="section-header">
+                <h2>Featured Programs</h2>
+            </div>
+            <div id="coursesContainer" class="courses-grid"></div>
         </section>
 
-        <section id="playerView" class="view-section hidden">
-            <div style="background: #FFFFFF; padding: 1rem 1.5rem; border-radius: 16px; border: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
-                <button onclick="switchView('catalog')" class="btn" style="background: transparent; color: var(--primary-blue); padding: 0;"><i class="fa-solid fa-arrow-left"></i> Back to Courses</button>
-                <div style="display: flex; align-items: center; gap: 1rem;">
-                    <span style="font-size: 0.8rem; font-weight: 700; color: var(--text-muted);">Progress:</span>
-                    <div style="width: 140px; background: #E2E8F0; height: 10px; border-radius: 10px; overflow: hidden;"><div id="progressBarFill" style="background: var(--success-green); height: 100%; width: 0%; transition: width 0.3s ease;"></div></div>
-                    <span id="progressTextPercent" style="font-size: 0.85rem; font-weight: 800; color: var(--primary-blue);">0%</span>
-                </div>
+        <!-- 2. WORKSPACE / PLAYER VIEW -->
+        <section id="workspaceView" class="hidden">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+                <button class="btn btn-glass" onclick="switchView('catalogView')"><i class="fa-solid fa-arrow-left"></i> Dashboard</button>
+                <span id="progressIndicator" style="font-weight: 700; color: #818CF8;">Progress: 0%</span>
             </div>
-            <div class="player-grid">
+
+            <div class="workspace-layout">
                 <div>
-                    <div class="video-container"><iframe id="videoIframe" src="" frameborder="0" allowfullscreen></iframe></div>
-                    <div class="module-details-card">
-                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
-                            <div><span id="moduleBadge" class="badge">Module 1</span><h3 id="moduleTitle" style="font-size: 1.1rem; font-weight: 800; margin-top: 0.3rem;">Lesson Title</h3></div>
-                            <span id="moduleStatusTag" style="font-size: 0.75rem; font-weight: 800; padding: 0.3rem 0.75rem; border-radius: 20px;">Pending</span>
-                        </div>
-                        <div id="moduleQuizBox" class="hidden" style="border-top: 1px solid var(--border-color); padding-top: 1rem;">
-                            <h4 style="font-size: 0.8rem; font-weight: 800; margin-bottom: 0.75rem;">5-Question Knowledge Assessment</h4>
-                            <div id="quizQuestionsContainer"></div>
-                            <button onclick="submitModuleQuiz()" class="btn btn-success" style="width: 100%; justify-content: center; margin-top: 0.75rem;">Submit Quiz & Verify Module (✔)</button>
-                        </div>
-                        <div id="startQuizPrompt" style="border-top: 1px solid #F1F5F9; padding-top: 1rem; display: flex; justify-content: space-between; align-items: center;">
-                            <span style="font-size: 0.75rem; color: var(--text-muted);">Green Tick (✔) unlock karne ke liye test dein.</span>
-                            <button onclick="showModuleQuiz()" class="btn btn-primary">Take 5-MCQ Quiz</button>
-                        </div>
+                    <div class="video-container">
+                        <iframe id="mainVideoPlayer" src="" allowfullscreen></iframe>
+                    </div>
+                    <div style="background: var(--surface-card); border: 1px solid var(--border-glow); padding: 1.5rem; border-radius: 20px; margin-top: 1.5rem;">
+                        <h2 id="activeLessonTitle" style="font-size: 1.4rem; font-weight: 700;">Lesson Title</h2>
+                        <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 0.5rem;">Video complete karne ke baad mark-as-completed button par click karein.</p>
+                        <button id="completeBtn" onclick="markLessonComplete()" class="btn btn-gradient" style="margin-top: 1.25rem;"><i class="fa-solid fa-circle-check"></i> Mark Complete</button>
                     </div>
                 </div>
-                <div>
-                    <div class="playlist-card">
-                        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); padding-bottom: 0.75rem; margin-bottom: 0.75rem;">
-                            <h4 style="font-size: 0.85rem; font-weight: 800;">Course Playlist</h4>
-                            <span id="completedCounterText" style="font-size: 0.75rem; font-weight: 700; background: #F1F5F9; padding: 0.2rem 0.6rem; border-radius: 12px;">0/0 Completed</span>
-                        </div>
-                        <div id="playlistList" style="max-height: 320px; overflow-y: auto;"></div>
-                        <div style="border-top: 1px solid var(--border-color); padding-top: 1rem; margin-top: 1rem; text-align: center;">
-                            <h5 style="font-size: 0.8rem; font-weight: 800; margin-bottom: 0.4rem;">Final Graduation Exam</h5>
-                            <p id="examLockStatusMsg" style="font-size: 0.7rem; font-weight: 600; padding: 0.5rem; border-radius: 8px; margin-bottom: 0.75rem; background: #FFE4E6; color: #9F1239;">Pehle tamam videos par Green Tick (✔) hasil karein.</p>
-                            <button id="finalExamBtn" disabled onclick="openFinalExam()" class="btn btn-disabled" style="width: 100%; justify-content: center;">Exam Locked</button>
-                        </div>
+
+                <div class="sidebar-card">
+                    <h3 style="font-size: 1.1rem; margin-bottom: 1.25rem;">Course Modules</h3>
+                    <div id="modulesList"></div>
+                    <hr style="border: 0; border-top: 1px solid var(--border-glow); margin: 1.5rem 0;">
+                    <button id="claimCertificateBtn" onclick="triggerCertificateModal()" class="btn btn-gradient" style="width: 100%; justify-content: center;" disabled><i class="fa-solid fa-award"></i> Claim Certificate</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. CERTIFICATE GENERATOR VIEW -->
+        <section id="certificateView" class="hidden">
+            <div id="printableCert" class="cert-wrapper">
+                <p style="letter-spacing: 3px; font-weight: 800; color: #818CF8; font-size: 0.85rem;">VERIFIED STATEMENT OF ACCOMPLISHMENT</p>
+                <h1 style="font-size: 2.2rem; font-weight: 800; margin-top: 0.5rem;">Talha Academy Platform</h1>
+                <p style="color: var(--text-muted); margin-top: 1.5rem;">This credential certifies that</p>
+                <h2 id="certStudentName" class="cert-name">STUDENT NAME</h2>
+                <p style="color: var(--text-muted); max-width: 600px; margin: 0 auto; line-height: 1.6;">has successfully mastered all practical coursework and technical competencies for the specialization track:</p>
+                <h3 id="certCourseTitle" style="font-size: 1.5rem; margin: 1.5rem 0; color: #FFF;">COURSE TITLE</h3>
+                
+                <div style="display: flex; justify-content: space-around; align-items: flex-end; margin-top: 3rem; border-top: 1px solid var(--border-glow); padding-top: 2rem;">
+                    <div>
+                        <p style="font-family: serif; font-style: italic; font-size: 1.4rem; color: #818CF8;">Muhammad Talha</p>
+                        <p style="font-size: 0.75rem; font-weight: 700; color: var(--text-muted); margin-top: 0.25rem;">INSTRUCTOR</p>
+                    </div>
+                    <div id="certQRCode"></div>
+                    <div>
+                        <p style="font-family: serif; font-style: italic; font-size: 1.4rem;">Academic Council</p>
+                        <p style="font-size: 0.75rem; font-weight: 700; color: var(--text-muted); margin-top: 0.25rem;">AUTHENTICATED ID</p>
                     </div>
                 </div>
             </div>
-        </section>
 
-        <section id="examView" class="view-section hidden">
-            <div style="max-width: 680px; margin: 0 auto; background: #FFFFFF; padding: 2rem; border-radius: 24px; border: 1px solid var(--border-color);">
-                <div style="border-bottom: 1px solid var(--border-color); padding-bottom: 1rem; margin-bottom: 1.5rem;">
-                    <span class="badge">Graduation Assessment</span>
-                    <h2 id="examCourseTitle" style="font-size: 1.4rem; font-weight: 800; margin-top: 0.3rem;">Course Title</h2>
-                </div>
-                <div style="margin-bottom: 1.25rem;">
-                    <label style="display: block; font-size: 0.75rem; font-weight: 800; text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.4rem;">Student Full Name</label>
-                    <input type="text" id="studentNameInput" placeholder="Enter your full official name..." style="width: 100%; padding: 0.75rem 1rem; border: 1px solid var(--border-color); border-radius: 12px; font-size: 0.9rem; font-weight: 600; background: #F8FAFC; outline: none;">
-                </div>
-                <div id="finalExamMcqList" style="max-height: 320px; overflow-y: auto; margin-bottom: 1.5rem;"></div>
-                <button onclick="submitFinalExam()" class="btn btn-primary" style="width: 100%; justify-content: center; padding: 0.85rem;">Evaluate Answers & Generate Certificate</button>
+            <div style="text-align: center; margin-top: 2rem;">
+                <button onclick="exportCertPDF()" class="btn btn-gradient"><i class="fa-solid fa-file-arrow-down"></i> Download High-Res PDF</button>
             </div>
         </section>
 
-        <section id="certificateView" class="view-section hidden">
-            <div id="certificateCanvas" class="cert-outer-wrapper">
-                <div class="cert-header">
-                    <div style="text-align: left;"><h1 style="font-size: 1.75rem; font-weight: 900; color: var(--primary-blue); line-height: 1;">Learn With Flow</h1><p style="font-size: 0.6rem; font-weight: 800; color: var(--text-muted); text-transform: uppercase;">Verified Credential Engine</p></div>
-                    <span style="font-size: 0.7rem; font-weight: 800; background: var(--soft-blue); color: var(--primary-blue); padding: 0.4rem 0.8rem; border-radius: 6px; border: 1px solid #BFDBFE;">VERIFIED CREDENTIAL</span>
-                </div>
-                <div>
-                    <p style="font-size: 0.7rem; font-weight: 800; color: var(--text-muted); text-transform: uppercase; letter-spacing: 2px;">This Is To Certify That</p>
-                    <h2 id="certStudentDisplay" class="cert-student-name">STUDENT NAME</h2>
-                    <p style="font-size: 0.85rem; color: var(--text-muted); max-width: 550px; margin: 0 auto 1.5rem auto;">has successfully completed all module assessments and passed the 25-Question Graduation Examination for track:</p>
-                    <div class="cert-center-banner"><span style="font-size: 0.65rem; color: #93C5FD; font-weight: 800; text-transform: uppercase; display: block; margin-bottom: 0.2rem;">Specialization Track</span><h3 id="certCourseDisplay">COURSE NAME</h3></div>
-                </div>
-                <div class="cert-signatures">
-                    <div><div class="sig-font">Muhammad Talha</div><p style="font-size: 0.85rem; font-weight: 800; margin-top: 0.4rem;">Muhammad Talha</p><p style="font-size: 0.65rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">CEO, Learn With Flow</p></div>
-                    <div style="display: flex; flex-direction: column; align-items: center;"><div id="certQrContainer" style="padding: 4px; background: #FFFFFF; border: 1px solid var(--border-color); border-radius: 6px;"></div><span style="font-size: 0.6rem; color: var(--text-muted); font-family: monospace; margin-top: 0.3rem;">Scan To Verify</span></div>
-                    <div><div class="sig-font" style="color: var(--text-main);">Academic Board</div><p style="font-size: 0.85rem; font-weight: 800; margin-top: 0.4rem;">Academic Council</p><p style="font-size: 0.65rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">Learn With Flow</p></div>
-                </div>
-                <div style="display: flex; justify-content: space-between; font-size: 0.65rem; color: var(--text-muted); border-top: 1px solid #F1F5F9; padding-top: 1rem; margin-top: 2rem;">
-                    <span>Serial: <strong id="certSerialCode" style="color: var(--text-main); font-family: monospace;">LWF-2026-000000</strong></span>
-                    <span>Platform: <strong style="color: var(--text-main);">Learn With Flow</strong></span>
-                    <span>Issued Date: <strong id="certIssuedDate" style="color: var(--text-main);">September 14, 2026</strong></span>
-                </div>
-            </div>
-            <div style="text-align: center; margin-top: 2rem;"><button onclick="downloadCertificatePDF()" class="btn btn-success" style="padding: 0.85rem 2rem; font-size: 0.9rem;"><i class="fa-solid fa-file-pdf"></i> Download PDF Certificate</button></div>
-        </section>
     </main>
+
     <script>
-        const coursesDB = [
-            { id: "fullstack-pro", title: "Full Stack Web Engineering (HTML, CSS, JS, React)", level: "Master Track", cover: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800&q=80", modules: [{ id: "fs_m1", title: "HTML5 Semantic Architecture", video: "https://www.youtube.com/embed/kUMe1FH4CHE" }, { id: "fs_m2", title: "CSS3 Flexbox & Grid UI", video: "https://www.youtube.com/embed/1Rs2ND1ryYc" }, { id: "fs_m3", title: "JavaScript ES6 Async Engine", video: "https://www.youtube.com/embed/W6NZfCO5SIk" }] },
-            { id: "python-ai", title: "Python Data Science & Machine Learning", level: "Advanced Track", cover: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=800&q=80", modules: [{ id: "py_m1", title: "Python Fundamentals & OOP", video: "https://www.youtube.com/embed/_uQrJ0TkZlc" }, { id: "py_m2", title: "Data Wrangling Pandas/NumPy", video: "https://www.youtube.com/embed/vmEHCJofslg" }] }
+        // Database Store
+        const LMS_DATABASE = [
+            {
+                id: 'track-1',
+                title: 'Full Stack Modern Web Engineering',
+                category: 'Development',
+                banner: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&q=80',
+                lessons: [
+                    { id: 't1_l1', title: '1. Architecture & Modern Frontend Engine', videoUrl: 'https://www.youtube.com/embed/kUMe1FH4CHE' },
+                    { id: 't1_l2', title: '2. Responsive UI Architecture & Flex/Grid', videoUrl: 'https://www.youtube.com/embed/1Rs2ND1ryYc' },
+                    { id: 't1_l3', title: '3. JS Controllers & Reactive State Engine', videoUrl: 'https://www.youtube.com/embed/W6NZfCO5SIk' }
+                ]
+            },
+            {
+                id: 'track-2',
+                title: 'Python for AI & Machine Learning',
+                category: 'Data Science',
+                banner: 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=800&q=80',
+                lessons: [
+                    { id: 't2_l1', title: '1. Core Python Structures & Automation', videoUrl: 'https://www.youtube.com/embed/_uQrJ0TkZlc' },
+                    { id: 't2_l2', title: '2. Data Analytics with Pandas Pipeline', videoUrl: 'https://www.youtube.com/embed/vmEHCJofslg' }
+                ]
+            }
         ];
-        let activeCourse = null, activeModuleIndex = 0, verifiedModules = new Set();
-        document.addEventListener('DOMContentLoaded', () => renderCatalog());
-        function switchView(viewName) { ['catalogView', 'playerView', 'examView', 'certificateView'].forEach(v => document.getElementById(v).classList.add('hidden')); document.getElementById(viewName + 'View').classList.remove('hidden'); }
-        function renderCatalog() {
-            const grid = document.getElementById('coursesGrid'); grid.innerHTML = '';
-            coursesDB.forEach(c => {
-                grid.innerHTML += `<div class="course-card"><div><img src="${c.cover}" class="course-cover"><div class="course-body"><span class="badge">${c.level}</span><h3 style="font-size:1.1rem; font-weight:800; margin:0.5rem 0;">${c.title}</h3></div></div><div style="padding: 1rem; background: #F8FAFC; border-top: 1px solid var(--border-color);"><button onclick="startCourseTrack('${c.id}')" class="btn btn-primary" style="width: 100%; justify-content: center;">Launch Track</button></div></div>`;
+
+        let activeTrack = null;
+        let activeLessonIndex = 0;
+        let completedLessonsState = new Set();
+
+        document.addEventListener('DOMContentLoaded', () => {
+            renderCatalogItems();
+        });
+
+        function switchView(viewId) {
+            ['catalogView', 'workspaceView', 'certificateView'].forEach(id => {
+                document.getElementById(id).classList.add('hidden');
+            });
+            document.getElementById(viewId).classList.remove('hidden');
+        }
+
+        function renderCatalogItems() {
+            const grid = document.getElementById('coursesContainer');
+            grid.innerHTML = '';
+
+            LMS_DATABASE.forEach(course => {
+                grid.innerHTML += `
+                    <div class="course-card">
+                        <img src="${course.banner}" class="card-banner">
+                        <div class="card-body">
+                            <div>
+                                <span class="badge">${course.category}</span>
+                                <h3 style="font-size: 1.2rem; font-weight: 700; margin: 0.75rem 0;">${course.title}</h3>
+                                <p style="font-size: 0.85rem; color: var(--text-muted);">${course.lessons.length} Modules Included</p>
+                            </div>
+                            <button onclick="launchCourse('${course.id}')" class="btn btn-gradient" style="margin-top: 1.5rem; justify-content: center;">
+                                <i class="fa-solid fa-play"></i> Start Track
+                            </button>
+                        </div>
+                    </div>
+                `;
             });
         }
-        function startCourseTrack(id) { activeCourse = coursesDB.find(c => c.id === id); activeModuleIndex = 0; verifiedModules.clear(); switchView('player'); loadModule(0); }
-        function loadModule(i) {
-            activeModuleIndex = i; const m = activeCourse.modules[i];
-            document.getElementById('videoIframe').src = m.video;
-            document.getElementById('moduleBadge').innerText = `Module ${i + 1}`;
-            document.getElementById('moduleTitle').innerText = m.title;
-            document.getElementById('moduleQuizBox').classList.add('hidden');
-            document.getElementById('startQuizPrompt').classList.remove('hidden');
-            const isDone = verifiedModules.has(m.id);
-            const tag = document.getElementById('moduleStatusTag');
-            tag.style.background = isDone ? '#D1FAE5' : '#FEF3C7'; tag.style.color = isDone ? '#065F46' : '#92400E';
-            tag.innerText = isDone ? '✔ Verified' : 'Pending';
-            renderPlaylist();
+
+        function launchCourse(courseId) {
+            activeTrack = LMS_DATABASE.find(c => c.id === courseId);
+            activeLessonIndex = 0;
+            completedLessonsState.clear();
+            switchView('workspaceView');
+            loadLessonModule(0);
         }
-        function renderPlaylist() {
-            const list = document.getElementById('playlistList'); list.innerHTML = ''; let done = 0;
-            activeCourse.modules.forEach((mod, idx) => {
-                const isV = verifiedModules.has(mod.id); if (isV) done++;
-                const isU = idx === 0 || verifiedModules.has(activeCourse.modules[idx - 1].id);
-                list.innerHTML += `<div class="playlist-item ${idx === activeModuleIndex ? 'active' : ''}" ${isU ? `onclick="loadModule(${idx})"` : 'style="opacity:0.5;"'}><span>${idx + 1}. ${mod.title}</span><span>${isV ? '✔' : (isU ? '▶' : '🔒')}</span></div>`;
+
+        function loadLessonModule(index) {
+            activeLessonIndex = index;
+            const targetLesson = activeTrack.lessons[index];
+            document.getElementById('mainVideoPlayer').src = targetLesson.videoUrl;
+            document.getElementById('activeLessonTitle').innerText = targetLesson.title;
+            renderSidebarModules();
+        }
+
+        function renderSidebarModules() {
+            const container = document.getElementById('modulesList');
+            container.innerHTML = '';
+            let finishedCount = 0;
+
+            activeTrack.lessons.forEach((lesson, idx) => {
+                const isCompleted = completedLessonsState.has(lesson.id);
+                if(isCompleted) finishedCount++;
+
+                container.innerHTML += `
+                    <div class="module-item ${idx === activeLessonIndex ? 'active' : ''}" onclick="loadLessonModule(${idx})">
+                        <span style="font-size: 0.85rem; font-weight: 600;">${lesson.title}</span>
+                        <i class="fa-solid ${isCompleted ? 'fa-circle-check' : 'fa-circle-play'}" style="color: ${isCompleted ? '#10B981' : '#64748B'};"></i>
+                    </div>
+                `;
             });
-            document.getElementById('progressBarFill').style.width = `${Math.round((done / activeCourse.modules.length) * 100)}%`;
-            document.getElementById('progressTextPercent').innerText = `${Math.round((done / activeCourse.modules.length) * 100)}%`;
-            document.getElementById('completedCounterText').innerText = `${done}/${activeCourse.modules.length} Done`;
-            const btn = document.getElementById('finalExamBtn');
-            if (done === activeCourse.modules.length) { btn.disabled = false; btn.className = "btn btn-success"; btn.innerText = "Unlock Final Exam"; }
-            else { btn.disabled = true; btn.className = "btn btn-disabled"; btn.innerText = "Exam Locked"; }
+
+            const percent = Math.round((finishedCount / activeTrack.lessons.length) * 100);
+            document.getElementById('progressIndicator').innerText = `Progress: ${percent}%`;
+            document.getElementById('claimCertificateBtn').disabled = (finishedCount !== activeTrack.lessons.length);
         }
-        function showModuleQuiz() {
-            document.getElementById('startQuizPrompt').classList.add('hidden'); document.getElementById('moduleQuizBox').classList.remove('hidden');
-            const box = document.getElementById('quizQuestionsContainer'); box.innerHTML = '';
-            for (let i = 1; i <= 5; i++) { box.innerHTML += `<div style="padding:0.5rem; border:1px solid #E2E8F0; margin-bottom:0.4rem; border-radius:8px;"><p style="font-weight:700; font-size:0.75rem;">Q${i}: Verification Logic?</p><label style="font-size:0.75rem;"><input type="radio" checked> Standard Architecture</label></div>`; }
+
+        function markLessonComplete() {
+            const currentLesson = activeTrack.lessons[activeLessonIndex];
+            completedLessonsState.add(currentLesson.id);
+            renderSidebarModules();
         }
-        function submitModuleQuiz() { verifiedModules.add(activeCourse.modules[activeModuleIndex].id); loadModule(activeModuleIndex); }
-        function openFinalExam() {
-            switchView('exam'); document.getElementById('examCourseTitle').innerText = activeCourse.title;
-            const box = document.getElementById('finalExamMcqList'); box.innerHTML = '';
-            for (let i = 1; i <= 25; i++) { box.innerHTML += `<div style="padding:0.5rem; border:1px solid #E2E8F0; margin-bottom:0.4rem; border-radius:8px;"><p style="font-weight:700; font-size:0.75rem;">MCQ ${i}: Final Validation Core?</p><label style="font-size:0.75rem;"><input type="radio" checked> Executed Correctly</label></div>`; }
+
+        function triggerCertificateModal() {
+            const studentName = prompt("Certificate ke liye apna Full Name enter karein:");
+            if(!studentName) return;
+
+            document.getElementById('certStudentName').innerText = studentName;
+            document.getElementById('certCourseTitle').innerText = activeTrack.title;
+
+            document.getElementById('certQRCode').innerHTML = '';
+            new QRCode(document.getElementById('certQRCode'), {
+                text: `https://talha-academy.com/verify?credential=${encodeURIComponent(studentName)}`,
+                width: 70,
+                height: 70
+            });
+
+            switchView('certificateView');
         }
-        function submitFinalExam() {
-            const name = document.getElementById('studentNameInput').value.trim();
-            if (!name) return alert("Enter student name!");
-            switchView('certificate');
-            document.getElementById('certStudentDisplay').innerText = name.toUpperCase();
-            document.getElementById('certCourseDisplay').innerText = activeCourse.title;
-            const serial = 'LWF-2026-' + Math.floor(100000 + Math.random() * 900000);
-            document.getElementById('certSerialCode').innerText = serial;
-            document.getElementById("certQrContainer").innerHTML = "";
-            new QRCode(document.getElementById("certQrContainer"), { text: `https://learnwithflow.com/verify/${serial}`, width: 60, height: 60 });
+
+        function exportCertPDF() {
+            const certElement = document.getElementById('printableCert');
+            html2pdf().from(certElement).save('Talha_Academy_Certificate.pdf');
         }
-        function downloadCertificatePDF() { html2pdf().from(document.getElementById('certificateCanvas')).save('Certificate.pdf'); }
     </script>
 </body>
 </html>
